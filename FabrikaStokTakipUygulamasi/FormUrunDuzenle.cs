@@ -7,11 +7,11 @@ namespace FabrikaStokTakipUygulamasi
 {
     public class FormUrunDuzenle : Form
     {
-        private static readonly Color CNavy    = Color.FromArgb(44, 62, 80);
-        private static readonly Color CLightBg = Color.FromArgb(236, 240, 241);
-        private static readonly Color CAccent  = Color.FromArgb(243, 156, 18);
-        private static readonly Color CWhite   = Color.White;
-        private static readonly Color CBorder  = Color.FromArgb(189, 195, 199);
+        private static readonly Color CNavy    = UIStil.Lacivert;
+        private static readonly Color CLightBg = UIStil.GriAcik;
+        private static readonly Color CAccent  = UIStil.Aksan;
+        private static readonly Color CWhite   = UIStil.Beyaz;
+        private static readonly Color CBorder  = UIStil.GriOrta;
 
         private readonly Urun _urun;
         public bool Guncellendi { get; private set; } = false;
@@ -101,7 +101,7 @@ namespace FabrikaStokTakipUygulamasi
 
             var lblPdfBaslik = new Label
             {
-                Text = "📄 Sertifika PDF",
+                Text = "Sertifika PDF",
                 Font = new Font("Segoe UI", 9f, FontStyle.Bold),
                 ForeColor = Color.FromArgb(127, 140, 141),
                 Location = new Point(14, 8), AutoSize = true
@@ -109,10 +109,12 @@ namespace FabrikaStokTakipUygulamasi
 
             btnPdfDegis = new Button
             {
-                Text = "📂 " + LangManager.T("duzenle.pdfdegis"),
+                Text = LangManager.T("duzenle.pdfdegis"),
                 BackColor = Color.FromArgb(52, 152, 219),
                 ForeColor = CWhite, FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI Semibold", 8.5f, FontStyle.Bold),
+                Padding = new Padding(24, 0, 0, 0),
+                TextAlign = ContentAlignment.MiddleLeft,
                 Location = new Point(14, 30), Size = new Size(185, 34), Cursor = Cursors.Hand
             };
             btnPdfDegis.FlatAppearance.BorderSize = 0;
@@ -120,14 +122,19 @@ namespace FabrikaStokTakipUygulamasi
 
             btnPdfSil = new Button
             {
-                Text = "✖ " + LangManager.T("duzenle.pdfsil"),
+                Text = LangManager.T("duzenle.pdfsil"),
                 BackColor = Color.FromArgb(192, 57, 43),
                 ForeColor = CWhite, FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI Semibold", 8.5f, FontStyle.Bold),
+                Padding = new Padding(24, 0, 0, 0),
+                TextAlign = ContentAlignment.MiddleLeft,
                 Location = new Point(208, 30), Size = new Size(185, 34), Cursor = Cursors.Hand
             };
             btnPdfSil.FlatAppearance.BorderSize = 0;
             btnPdfSil.Click += BtnPdfSil_Click;
+
+            btnPdfDegis.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Dokuman, btnPdfDegis.ClientRectangle, CWhite, 11f);
+            btnPdfSil.Paint   += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Sil,      btnPdfSil.ClientRectangle,   CWhite, 11f);
 
             lblPdfDurum = new Label
             {

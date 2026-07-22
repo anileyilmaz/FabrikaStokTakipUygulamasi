@@ -69,6 +69,8 @@ namespace FabrikaStokTakipUygulamasi
             btnUrunEkle.ForeColor = System.Drawing.Color.White;
             btnUrunEkle.Location = new System.Drawing.Point(780, 540);
             btnUrunEkle.Name = "btnUrunEkle";
+            btnUrunEkle.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            btnUrunEkle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnUrunEkle.Size = new System.Drawing.Size(160, 45);
             btnUrunEkle.TabIndex = 23;
             btnUrunEkle.Text = "Ürün Ekle";
@@ -149,7 +151,7 @@ namespace FabrikaStokTakipUygulamasi
             // lblParent
             //
             lblParent.AutoSize = true;
-            lblParent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            lblParent.Font = new System.Drawing.Font("Segoe UI", 9F);
             lblParent.Location = new System.Drawing.Point(20, 200);
             lblParent.Name = "lblParent";
             lblParent.Size = new System.Drawing.Size(75, 13);
@@ -159,7 +161,7 @@ namespace FabrikaStokTakipUygulamasi
             // Batch
             //
             Batch.AutoSize = true;
-            Batch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Batch.Font = new System.Drawing.Font("Segoe UI", 9F);
             Batch.Location = new System.Drawing.Point(20, 160);
             Batch.Name = "Batch";
             Batch.Size = new System.Drawing.Size(52, 13);
@@ -169,7 +171,7 @@ namespace FabrikaStokTakipUygulamasi
             // Material
             //
             Material.AutoSize = true;
-            Material.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Material.Font = new System.Drawing.Font("Segoe UI", 9F);
             Material.Location = new System.Drawing.Point(20, 120);
             Material.Name = "Material";
             Material.Size = new System.Drawing.Size(63, 13);
@@ -179,7 +181,7 @@ namespace FabrikaStokTakipUygulamasi
             // Certificate
             //
             Certificate.AutoSize = true;
-            Certificate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Certificate.Font = new System.Drawing.Font("Segoe UI", 9F);
             Certificate.Location = new System.Drawing.Point(20, 80);
             Certificate.Name = "Certificate";
             Certificate.Size = new System.Drawing.Size(71, 13);
@@ -189,7 +191,7 @@ namespace FabrikaStokTakipUygulamasi
             // Customer
             //
             Customer.AutoSize = true;
-            Customer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Customer.Font = new System.Drawing.Font("Segoe UI", 9F);
             Customer.Location = new System.Drawing.Point(20, 40);
             Customer.Name = "Customer";
             Customer.Size = new System.Drawing.Size(51, 13);
@@ -260,7 +262,7 @@ namespace FabrikaStokTakipUygulamasi
             // Lenght
             //
             Lenght.AutoSize = true;
-            Lenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Lenght.Font = new System.Drawing.Font("Segoe UI", 9F);
             Lenght.Location = new System.Drawing.Point(20, 200);
             Lenght.Name = "Lenght";
             Lenght.Size = new System.Drawing.Size(62, 13);
@@ -270,7 +272,7 @@ namespace FabrikaStokTakipUygulamasi
             // lblWidth
             //
             lblWidth.AutoSize = true;
-            lblWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            lblWidth.Font = new System.Drawing.Font("Segoe UI", 9F);
             lblWidth.Location = new System.Drawing.Point(20, 160);
             lblWidth.Name = "lblWidth";
             lblWidth.Size = new System.Drawing.Size(57, 13);
@@ -280,7 +282,7 @@ namespace FabrikaStokTakipUygulamasi
             // THK
             //
             THK.AutoSize = true;
-            THK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            THK.Font = new System.Drawing.Font("Segoe UI", 9F);
             THK.Location = new System.Drawing.Point(20, 120);
             THK.Name = "THK";
             THK.Size = new System.Drawing.Size(51, 13);
@@ -290,7 +292,7 @@ namespace FabrikaStokTakipUygulamasi
             // Grade
             //
             Grade.AutoSize = true;
-            Grade.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Grade.Font = new System.Drawing.Font("Segoe UI", 9F);
             Grade.Location = new System.Drawing.Point(20, 80);
             Grade.Name = "Grade";
             Grade.Size = new System.Drawing.Size(36, 13);
@@ -300,7 +302,7 @@ namespace FabrikaStokTakipUygulamasi
             // Heat
             //
             Heat.AutoSize = true;
-            Heat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Heat.Font = new System.Drawing.Font("Segoe UI", 9F);
             Heat.Location = new System.Drawing.Point(20, 40);
             Heat.Name = "Heat";
             Heat.Size = new System.Drawing.Size(47, 13);
@@ -331,7 +333,7 @@ namespace FabrikaStokTakipUygulamasi
             // label1
             //
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             label1.Location = new System.Drawing.Point(20, 38);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(68, 15);
@@ -348,6 +350,8 @@ namespace FabrikaStokTakipUygulamasi
             btnTemizle.ForeColor = System.Drawing.Color.White;
             btnTemizle.Location = new System.Drawing.Point(780, 595);
             btnTemizle.Name = "btnTemizle";
+            btnTemizle.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            btnTemizle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnTemizle.Size = new System.Drawing.Size(160, 45);
             btnTemizle.TabIndex = 28;
             btnTemizle.Text = "Temizle";
@@ -378,9 +382,11 @@ namespace FabrikaStokTakipUygulamasi
             btnPdfSec.ForeColor = System.Drawing.Color.White;
             btnPdfSec.Location = new System.Drawing.Point(15, 38);
             btnPdfSec.Name = "btnPdfSec";
+            btnPdfSec.Padding = new System.Windows.Forms.Padding(26, 0, 0, 0);
+            btnPdfSec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnPdfSec.Size = new System.Drawing.Size(185, 38);
             btnPdfSec.TabIndex = 0;
-            btnPdfSec.Text = "📄 Sertifika PDF Seç...";
+            btnPdfSec.Text = "Sertifika PDF Seç...";
             btnPdfSec.UseVisualStyleBackColor = false;
             btnPdfSec.Click += btnPdfSec_Click;
             //
@@ -394,9 +400,11 @@ namespace FabrikaStokTakipUygulamasi
             btnPdfKaldir.ForeColor = System.Drawing.Color.White;
             btnPdfKaldir.Location = new System.Drawing.Point(210, 38);
             btnPdfKaldir.Name = "btnPdfKaldir";
+            btnPdfKaldir.Padding = new System.Windows.Forms.Padding(26, 0, 0, 0);
+            btnPdfKaldir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnPdfKaldir.Size = new System.Drawing.Size(185, 38);
             btnPdfKaldir.TabIndex = 1;
-            btnPdfKaldir.Text = "✖ PDF Kaldır";
+            btnPdfKaldir.Text = "PDF Kaldır";
             btnPdfKaldir.UseVisualStyleBackColor = false;
             btnPdfKaldir.Visible = false;
             btnPdfKaldir.Click += btnPdfKaldir_Click;
@@ -414,7 +422,7 @@ namespace FabrikaStokTakipUygulamasi
             // FormUrunEkle
             //
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            BackColor = System.Drawing.Color.Gainsboro;
+            BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             ClientSize = new System.Drawing.Size(1184, 661);
             Controls.Add(btnTemizle);
             Controls.Add(grpSertifika);
@@ -423,7 +431,7 @@ namespace FabrikaStokTakipUygulamasi
             Controls.Add(grpGenel);
             Controls.Add(lblTitle);
             Controls.Add(btnUrunEkle);
-            Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             Name = "FormUrunEkle";
             Text = "Ürün Ekle";
             Load += FormUrunEkle_Load;

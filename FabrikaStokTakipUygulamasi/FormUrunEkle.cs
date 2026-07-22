@@ -16,6 +16,11 @@ namespace FabrikaStokTakipUygulamasi
             this.TopLevel        = false;
             this.FormBorderStyle = FormBorderStyle.None;
             this.Dock            = DockStyle.Fill;
+
+            btnUrunEkle.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ekle,  btnUrunEkle.ClientRectangle, Color.White);
+            btnTemizle.Paint   += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat, btnTemizle.ClientRectangle,  Color.White);
+            btnPdfSec.Paint    += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Dokuman, btnPdfSec.ClientRectangle, Color.White, 11f);
+            btnPdfKaldir.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat,   btnPdfKaldir.ClientRectangle, Color.White, 11f);
         }
 
         private void FormUrunEkle_Load(object sender, EventArgs e)
