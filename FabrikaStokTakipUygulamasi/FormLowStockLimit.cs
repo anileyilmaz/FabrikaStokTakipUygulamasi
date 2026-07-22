@@ -6,11 +6,11 @@ namespace FabrikaStokTakipUygulamasi
 {
     public class FormLowStockLimit : Form
     {
-        private static readonly Color CNavy   = Color.FromArgb(44, 62, 80);
-        private static readonly Color CAccent = Color.FromArgb(243, 156, 18);
-        private static readonly Color CLightBg= Color.FromArgb(236, 240, 241);
-        private static readonly Color CWhite  = Color.White;
-        private static readonly Color CBorder = Color.FromArgb(189, 195, 199);
+        private static readonly Color CNavy   = UIStil.Lacivert;
+        private static readonly Color CAccent = UIStil.Aksan;
+        private static readonly Color CLightBg= UIStil.GriAcik;
+        private static readonly Color CWhite  = UIStil.Beyaz;
+        private static readonly Color CBorder = UIStil.GriOrta;
 
         private readonly Urun _urun;
         private readonly bool _duzenle;

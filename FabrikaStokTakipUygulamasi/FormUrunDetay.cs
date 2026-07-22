@@ -8,10 +8,10 @@ namespace FabrikaStokTakipUygulamasi
 {
     public class FormUrunDetay : Form
     {
-        private static readonly Color CNavy    = Color.FromArgb(44, 62, 80);
-        private static readonly Color CLightBg = Color.FromArgb(236, 240, 241);
-        private static readonly Color CWhite   = Color.White;
-        private static readonly Color CBorder  = Color.FromArgb(189, 195, 199);
+        private static readonly Color CNavy    = UIStil.Lacivert;
+        private static readonly Color CLightBg = UIStil.GriAcik;
+        private static readonly Color CWhite   = UIStil.Beyaz;
+        private static readonly Color CBorder  = UIStil.GriOrta;
 
         private readonly Urun _urun;
 
@@ -145,28 +145,34 @@ namespace FabrikaStokTakipUygulamasi
             {
                 var btnPdf = new Button
                 {
-                    Text      = $"📄 {LangManager.T("detay.sertifika")}  —  {_urun.SertifikaDosyaAdi}",
+                    Text      = $"{LangManager.T("detay.sertifika")}  —  {_urun.SertifikaDosyaAdi}",
                     BackColor = Color.FromArgb(52, 152, 219),
                     ForeColor = CWhite,
                     FlatStyle = FlatStyle.Flat,
                     Font      = new Font("Segoe UI Semibold", 9.5f, FontStyle.Bold),
                     Location  = new Point(10, 10),
                     Size      = new Size(574, 46),
+                    Padding   = new Padding(34, 0, 0, 0),
                     Cursor    = Cursors.Hand,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleLeft
                 };
                 btnPdf.FlatAppearance.BorderSize = 0;
                 btnPdf.Click += (s, e) => PdfAc(_urun.SertifikaPdf, _urun.SertifikaDosyaAdi);
+                btnPdf.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Dokuman, btnPdf.ClientRectangle, CWhite, 12f);
                 panelPdf.Controls.Add(btnPdf);
             }
             else
             {
+                var ikon = UIStil.IkonLabel(UIStil.Glyph.Dokuman, Color.FromArgb(149, 165, 166), 10f);
+                ikon.Location = new Point(14, 13);
+                panelPdf.Controls.Add(ikon);
+
                 panelPdf.Controls.Add(new Label
                 {
-                    Text      = "📄 " + LangManager.T("detay.sertifikayok"),
+                    Text      = LangManager.T("detay.sertifikayok"),
                     Font      = new Font("Segoe UI", 9f),
                     ForeColor = Color.FromArgb(149, 165, 166),
-                    Location  = new Point(14, 12),
+                    Location  = new Point(36, 12),
                     AutoSize  = true
                 });
             }

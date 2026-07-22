@@ -6,10 +6,10 @@ namespace FabrikaStokTakipUygulamasi
 {
     public class FormSilOnay : Form
     {
-        private static readonly Color CNavy   = Color.FromArgb(44, 62, 80);
-        private static readonly Color CRed    = Color.FromArgb(192, 57, 43);
-        private static readonly Color CLightBg= Color.FromArgb(236, 240, 241);
-        private static readonly Color CWhite  = Color.White;
+        private static readonly Color CNavy   = UIStil.Lacivert;
+        private static readonly Color CRed    = UIStil.Kritik;
+        private static readonly Color CLightBg= UIStil.GriAcik;
+        private static readonly Color CWhite  = UIStil.Beyaz;
 
         public bool Onaylandi { get; private set; } = false;
 
@@ -40,8 +40,8 @@ namespace FabrikaStokTakipUygulamasi
             // Uyarı ikonu
             var lblIcon = new Label
             {
-                Text      = "⚠",
-                Font      = new Font("Segoe UI", 34f),
+                Text      = UIStil.Glyph.Uyarim,
+                Font      = UIStil.GlyphFont(34f),
                 ForeColor = CRed,
                 AutoSize  = true
             };

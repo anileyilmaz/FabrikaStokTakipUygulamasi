@@ -8,14 +8,14 @@ namespace FabrikaStokTakipUygulamasi
     public class FormAdmin : Form
     {
         // ── Renkler ──────────────────────────────────────────────────────────
-        static readonly Color CNavy   = Color.FromArgb(44, 62, 80);
-        static readonly Color CDark   = Color.FromArgb(30, 44, 57);
-        static readonly Color CGray   = Color.FromArgb(236, 240, 241);
-        static readonly Color CWhite  = Color.White;
-        static readonly Color CGreen  = Color.FromArgb(39, 174, 96);
-        static readonly Color CRed    = Color.FromArgb(192, 57, 43);
-        static readonly Color COrange = Color.FromArgb(211, 84, 0);
-        static readonly Color CBlue   = Color.FromArgb(41, 128, 185);
+        static readonly Color CNavy   = UIStil.Lacivert;
+        static readonly Color CDark   = UIStil.LacivertKoyu;
+        static readonly Color CGray   = UIStil.GriAcik;
+        static readonly Color CWhite  = UIStil.Beyaz;
+        static readonly Color CGreen  = UIStil.Basarili;
+        static readonly Color CRed    = UIStil.Kritik;
+        static readonly Color COrange = UIStil.Uyari;
+        static readonly Color CBlue   = UIStil.Mavi;
 
         // ── Kontroller ───────────────────────────────────────────────────────
         private TabControl   tabMain;
@@ -93,8 +93,8 @@ namespace FabrikaStokTakipUygulamasi
         {
             _lblBaslik.Text      = LangManager.T("admin.baslik");
             _lblAltBaslik.Text   = LangManager.T("admin.altbaslik");
-            tabKullanicilar.Text = LangManager.Ingilizce ? "👥  Users"            : "👥  Kullanıcılar";
-            tabHareketler.Text   = LangManager.Ingilizce ? "📋  Stock Movements"  : "📋  Stok Hareketleri";
+            tabKullanicilar.Text = LangManager.Ingilizce ? "Users"            : "Kullanıcılar";
+            tabHareketler.Text   = LangManager.Ingilizce ? "Stock Movements"  : "Stok Hareketleri";
         }
 
         // ════════════════════════════════════════════════════════════════════
@@ -108,6 +108,13 @@ namespace FabrikaStokTakipUygulamasi
             btnYeniKul = MkBtn("", CGreen,   new Point(14, 11),  new Size(155, 30));
             btnDuzKul  = MkBtn("", COrange,  new Point(179, 11), new Size(130, 30));
             btnSilKul  = MkBtn("", CRed,     new Point(319, 11), new Size(110, 30));
+
+            btnYeniKul.Padding = new Padding(26, 0, 0, 0);
+            btnDuzKul.Padding  = new Padding(26, 0, 0, 0);
+            btnSilKul.Padding  = new Padding(26, 0, 0, 0);
+            btnYeniKul.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ekle,    btnYeniKul.ClientRectangle, CWhite, 10f);
+            btnDuzKul.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Duzenle, btnDuzKul.ClientRectangle,  CWhite, 10f);
+            btnSilKul.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Sil,     btnSilKul.ClientRectangle,  CWhite, 10f);
 
             btnYeniKul.Click += (s, e) => AcKullaniciFrm(null);
             btnDuzKul.Click  += BtnDuzenle_Click;
@@ -151,9 +158,9 @@ namespace FabrikaStokTakipUygulamasi
 
         private void GuncelleKulKolonlar()
         {
-            btnYeniKul.Text = LangManager.Ingilizce ? "👤  New User"  : "👤  Yeni Kullanıcı";
-            btnDuzKul.Text  = LangManager.Ingilizce ? "✎  Edit"       : "✎  Düzenle";
-            btnSilKul.Text  = LangManager.Ingilizce ? "✖  Delete"     : "✖  Sil";
+            btnYeniKul.Text = LangManager.Ingilizce ? "New User"  : "Yeni Kullanıcı";
+            btnDuzKul.Text  = LangManager.Ingilizce ? "Edit"       : "Düzenle";
+            btnSilKul.Text  = LangManager.Ingilizce ? "Delete"     : "Sil";
             dgvKul.Columns["cKulAdi"].HeaderText   = LangManager.T("admin.kul.ad");
             dgvKul.Columns["cRol"].HeaderText       = LangManager.T("admin.kul.rol");
             dgvKul.Columns["cSonGiris"].HeaderText  = LangManager.T("admin.kul.giris");

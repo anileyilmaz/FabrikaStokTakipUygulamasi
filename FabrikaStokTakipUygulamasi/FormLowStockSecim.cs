@@ -11,9 +11,9 @@ namespace FabrikaStokTakipUygulamasi
     /// </summary>
     public class FormLowStockSecim : Form
     {
-        private static readonly Color CNavy    = Color.FromArgb(44, 62, 80);
-        private static readonly Color CWhite   = Color.White;
-        private static readonly Color CBg      = Color.FromArgb(236, 240, 241);
+        private static readonly Color CNavy    = UIStil.Lacivert;
+        private static readonly Color CWhite   = UIStil.Beyaz;
+        private static readonly Color CBg      = UIStil.GriAcik;
 
         private readonly string _mod;   // "yeni" veya "duzenle"
         private DataGridView dgv;

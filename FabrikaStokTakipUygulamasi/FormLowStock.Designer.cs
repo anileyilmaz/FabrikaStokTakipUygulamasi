@@ -235,7 +235,7 @@ namespace FabrikaStokTakipUygulamasi
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.Gainsboro;
+            BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             ClientSize = new System.Drawing.Size(1381, 763);
             Controls.Add(dgvLowStock);
             Controls.Add(panelTop);
