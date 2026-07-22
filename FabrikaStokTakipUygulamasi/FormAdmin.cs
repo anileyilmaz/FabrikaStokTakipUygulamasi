@@ -193,7 +193,8 @@ namespace FabrikaStokTakipUygulamasi
                 string sonGiris = k.SonGiris.HasValue
                     ? k.SonGiris.Value.ToString("dd.MM.yyyy HH:mm")
                     : (LangManager.T("admin.hic"));
-                string sifre = new string('•', k.Sifre.Length);
+                // Hash uzunluğu gerçek şifre uzunluğunu ele vermesin diye sabit sayıda nokta gösterilir.
+                string sifre = new string('•', 8);
 
                 int idx = dgvKul.Rows.Add(k.KullaniciAdi, k.RolAdi, sonGiris, durum, sifre);
                 dgvKul.Rows[idx].Tag = k.KullaniciAdi;
@@ -297,10 +298,13 @@ namespace FabrikaStokTakipUygulamasi
 
             var lblAd    = Lbl(LangManager.T("admin.kulyeni.ad"),    16);
             var txtAd    = Txt(hedef?.KullaniciAdi ?? "",             34);
-            var lblSifre = Lbl(LangManager.T("admin.kulyeni.sifre"), 70);
-            // Düzenle modunda mevcut şifre açık gösterilir; yeni kullanıcıda maskelenir
-            bool sifreMaskeli = (hedef == null);
-            var txtSifre = Txt(hedef?.Sifre ?? "", 88, sifreMaskeli);
+            var lblSifre = Lbl(yeni
+                ? LangManager.T("admin.kulyeni.sifre")
+                : (LangManager.Ingilizce ? "New Password (leave blank to keep current)"
+                                         : "Yeni Şifre (boş bırakılırsa değişmez)"), 70);
+            // Güvenlik: saklanan şifre hash'i hiçbir zaman ekranda gösterilmez.
+            // Alan her zaman boş başlar; düzenleme modunda boş bırakılırsa mevcut şifre korunur.
+            var txtSifre = Txt("", 88, pwd: true);
             var lblRol   = Lbl(LangManager.T("admin.kulyeni.rol"),  124);
 
             var cmbRol = new ComboBox
@@ -351,7 +355,8 @@ namespace FabrikaStokTakipUygulamasi
                              : cmbRol.SelectedIndex == 1 ? KullaniciRol.Muhendis
                              : KullaniciRol.DepoPersoneli;
 
-                if (string.IsNullOrWhiteSpace(ad) || string.IsNullOrWhiteSpace(sifre))
+                bool sifreZorunlu = yeni; // Yeni kullanıcıda şifre şart; düzenlemede boş = değiştirme
+                if (string.IsNullOrWhiteSpace(ad) || (sifreZorunlu && string.IsNullOrWhiteSpace(sifre)))
                 {
                     MessageBox.Show(LangManager.T("admin.kulyeni.bos"),
                         LangManager.T("genel.uyari"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
