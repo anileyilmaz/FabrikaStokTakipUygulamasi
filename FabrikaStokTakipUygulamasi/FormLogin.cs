@@ -50,7 +50,7 @@ namespace FabrikaStokTakipUygulamasi
             label1.Text       = LangManager.T("login.kullanici");
             label2.Text       = LangManager.T("login.sifre");
             btnLogin.Text     = LangManager.T("login.btn");
-            btnDilToggle.Text = LangManager.AktifDil == LangManager.Dil.TR ? "🌐 EN" : "🌐 TR";
+            btnDilToggle.Text = LangManager.AktifDil == LangManager.Dil.TR ? "EN" : "TR";
             chkAcikTut.Text   = LangManager.Ingilizce ? "Keep me logged in" : "Oturumu Açık Tut";
             this.Text         = LangManager.Ingilizce ? "Login" : "Giriş";
         }

@@ -100,8 +100,8 @@ namespace FabrikaStokTakipUygulamasi
             btnGozToggle.Size                   = new System.Drawing.Size(28, 27);
             btnGozToggle.TabIndex               = 1;
             btnGozToggle.TabStop                = false;
-            btnGozToggle.Text                   = "👁";
-            btnGozToggle.Font                   = new System.Drawing.Font("Segoe UI", 9F);
+            btnGozToggle.Text                   = FabrikaStokTakipUygulamasi.UIStil.Glyph.Goz;
+            btnGozToggle.Font                   = FabrikaStokTakipUygulamasi.UIStil.GlyphFont(11f);
             btnGozToggle.FlatStyle              = System.Windows.Forms.FlatStyle.Flat;
             btnGozToggle.FlatAppearance.BorderSize = 0;
             btnGozToggle.BackColor              = System.Drawing.Color.FromArgb(240, 242, 245);
@@ -120,7 +120,7 @@ namespace FabrikaStokTakipUygulamasi
             chkAcikTut.Cursor    = System.Windows.Forms.Cursors.Hand;
 
             // btnLogin
-            btnLogin.BackColor               = System.Drawing.Color.FromArgb(46, 134, 193);
+            btnLogin.BackColor               = FabrikaStokTakipUygulamasi.UIStil.Mavi;
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle               = System.Windows.Forms.FlatStyle.Flat;
             btnLogin.Font                    = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
@@ -142,16 +142,19 @@ namespace FabrikaStokTakipUygulamasi
             btnDilToggle.ForeColor               = System.Drawing.Color.White;
             btnDilToggle.Location                = new System.Drawing.Point(1261, 703);
             btnDilToggle.Name                    = "btnDilToggle";
+            btnDilToggle.Padding                 = new System.Windows.Forms.Padding(26, 0, 0, 0);
             btnDilToggle.Size                    = new System.Drawing.Size(100, 40);
             btnDilToggle.TabIndex                = 6;
-            btnDilToggle.Text                    = "🌐 EN";
+            btnDilToggle.Text                    = "EN";
+            btnDilToggle.TextAlign               = System.Drawing.ContentAlignment.MiddleLeft;
             btnDilToggle.UseVisualStyleBackColor = false;
             btnDilToggle.Click                  += btnDilToggle_Click;
+            btnDilToggle.Paint                  += (s, e) => FabrikaStokTakipUygulamasi.UIStil.SolIkonCiz(e.Graphics, FabrikaStokTakipUygulamasi.UIStil.Glyph.Dunya, btnDilToggle.ClientRectangle, System.Drawing.Color.White, 11f);
 
             // FormLogin
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode       = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor           = System.Drawing.Color.FromArgb(244, 246, 248);
+            BackColor           = FabrikaStokTakipUygulamasi.UIStil.GriAcik;
             ClientSize          = new System.Drawing.Size(1381, 763);
             Controls.Add(btnDilToggle);
             Controls.Add(btnLogin);
