@@ -12,9 +12,17 @@ namespace FabrikaStokTakipUygulamasi
         {
             InitializeComponent();
 
+            btnDashboard.Paint   += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.AnaSayfa, btnDashboard.ClientRectangle, Color.White);
+            btnUrunler.Paint     += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kutu,      btnUrunler.ClientRectangle,   Color.White);
+            btnUrunEkle.Paint    += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ekle,       btnUrunEkle.ClientRectangle,  Color.White);
+            btnArama.Paint       += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ara,        btnArama.ClientRectangle,     Color.White);
+            btnLowStock.Paint    += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Uyarim,     btnLowStock.ClientRectangle, Color.White);
+            btnAdmin.Paint       += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ayarlar,    btnAdmin.ClientRectangle,    btnAdmin.ForeColor);
+            btnOturumKapat.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kilit,      btnOturumKapat.ClientRectangle, Color.White);
+
             if (KullaniciYonetici.AktifKullanici != null)
             {
-                lblKullaniciAdi.Text = "👤 " + KullaniciYonetici.AktifKullanici.KullaniciAdi;
+                lblKullaniciAdi.Text = KullaniciYonetici.AktifKullanici.KullaniciAdi;
                 lblKullaniciRol.Text = KullaniciYonetici.AktifKullanici.RolAdi;
             }
 

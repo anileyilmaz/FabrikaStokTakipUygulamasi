@@ -63,7 +63,7 @@ namespace FabrikaStokTakipUygulamasi
             this.btnDashboard.ForeColor = System.Drawing.Color.White;
             this.btnDashboard.Location = new System.Drawing.Point(0, 0);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnDashboard.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnDashboard.Size = new System.Drawing.Size(198, 55);
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
@@ -81,7 +81,7 @@ namespace FabrikaStokTakipUygulamasi
             this.btnUrunler.ForeColor = System.Drawing.Color.White;
             this.btnUrunler.Location = new System.Drawing.Point(0, 55);
             this.btnUrunler.Name = "btnUrunler";
-            this.btnUrunler.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnUrunler.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnUrunler.Size = new System.Drawing.Size(198, 55);
             this.btnUrunler.TabIndex = 1;
             this.btnUrunler.Text = "Ürünler";
@@ -99,7 +99,7 @@ namespace FabrikaStokTakipUygulamasi
             this.btnUrunEkle.ForeColor = System.Drawing.Color.White;
             this.btnUrunEkle.Location = new System.Drawing.Point(0, 110);
             this.btnUrunEkle.Name = "btnUrunEkle";
-            this.btnUrunEkle.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnUrunEkle.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnUrunEkle.Size = new System.Drawing.Size(198, 55);
             this.btnUrunEkle.TabIndex = 2;
             this.btnUrunEkle.Text = "Ürün Ekle";
@@ -117,7 +117,7 @@ namespace FabrikaStokTakipUygulamasi
             this.btnArama.ForeColor = System.Drawing.Color.White;
             this.btnArama.Location = new System.Drawing.Point(0, 165);
             this.btnArama.Name = "btnArama";
-            this.btnArama.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnArama.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnArama.Size = new System.Drawing.Size(198, 55);
             this.btnArama.TabIndex = 3;
             this.btnArama.Text = "Gelişmiş Arama";
@@ -135,7 +135,7 @@ namespace FabrikaStokTakipUygulamasi
             this.btnLowStock.ForeColor = System.Drawing.Color.White;
             this.btnLowStock.Location = new System.Drawing.Point(0, 220);
             this.btnLowStock.Name = "btnLowStock";
-            this.btnLowStock.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnLowStock.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnLowStock.Size = new System.Drawing.Size(198, 55);
             this.btnLowStock.TabIndex = 4;
             this.btnLowStock.Text = "Low Stock";
@@ -154,10 +154,10 @@ namespace FabrikaStokTakipUygulamasi
             this.btnAdmin.BackColor = System.Drawing.Color.FromArgb(30, 44, 57);
             this.btnAdmin.Location = new System.Drawing.Point(0, 275);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnAdmin.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
             this.btnAdmin.Size = new System.Drawing.Size(198, 55);
             this.btnAdmin.TabIndex = 5;
-            this.btnAdmin.Text = "🔐  Admin Paneli";
+            this.btnAdmin.Text = "Admin Paneli";
             this.btnAdmin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdmin.UseVisualStyleBackColor = false;
             this.btnAdmin.Visible = false;
@@ -190,7 +190,9 @@ namespace FabrikaStokTakipUygulamasi
             this.lblKullaniciRol.Text = "";
 
             // btnOturumKapat - kullanıcı bilgisinin altında
-            this.btnOturumKapat.Text = "⏻  Oturumu Kapat";
+            this.btnOturumKapat.Text = "Oturumu Kapat";
+            this.btnOturumKapat.Padding = new System.Windows.Forms.Padding(38, 0, 0, 0);
+            this.btnOturumKapat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOturumKapat.Location = new System.Drawing.Point(12, 60);
             this.btnOturumKapat.Size = new System.Drawing.Size(168, 36);
             this.btnOturumKapat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
