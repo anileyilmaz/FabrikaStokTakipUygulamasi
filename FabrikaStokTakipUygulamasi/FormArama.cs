@@ -11,6 +11,9 @@ namespace FabrikaStokTakipUygulamasi
         public FormArama()
         {
             InitializeComponent();
+
+            btnAra.Paint     += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ara,   btnAra.ClientRectangle,     System.Drawing.Color.White, 10f);
+            btnTemizle.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat, btnTemizle.ClientRectangle, System.Drawing.Color.White, 10f);
         }
 
         private void FormArama_Load(object sender, EventArgs e)

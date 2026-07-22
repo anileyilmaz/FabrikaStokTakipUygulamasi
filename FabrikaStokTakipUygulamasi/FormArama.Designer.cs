@@ -102,6 +102,7 @@ namespace FabrikaStokTakipUygulamasi
             btnTemizle.ForeColor = System.Drawing.Color.White;
             btnTemizle.Location = new System.Drawing.Point(608, 14);
             btnTemizle.Name = "btnTemizle";
+            btnTemizle.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
             btnTemizle.Size = new System.Drawing.Size(110, 32);
             btnTemizle.TabIndex = 3;
             btnTemizle.Text = "TEMİZLE";
@@ -117,6 +118,7 @@ namespace FabrikaStokTakipUygulamasi
             btnAra.ForeColor = System.Drawing.Color.White;
             btnAra.Location = new System.Drawing.Point(503, 14);
             btnAra.Name = "btnAra";
+            btnAra.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
             btnAra.Size = new System.Drawing.Size(92, 32);
             btnAra.TabIndex = 2;
             btnAra.Text = "ARA";
@@ -144,7 +146,7 @@ namespace FabrikaStokTakipUygulamasi
             // panelFilter
             // 
             panelFilter.AutoScroll = true;
-            panelFilter.BackColor = System.Drawing.Color.Gainsboro;
+            panelFilter.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             panelFilter.Controls.Add(lblFilterCustomer);
             panelFilter.Controls.Add(cmbUrun);
             panelFilter.Controls.Add(lblFilterParent);
@@ -575,7 +577,7 @@ namespace FabrikaStokTakipUygulamasi
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.Gainsboro;
+            BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             ClientSize = new System.Drawing.Size(1414, 787);
             Controls.Add(dgvUrunler);
             Controls.Add(panelFilter);
