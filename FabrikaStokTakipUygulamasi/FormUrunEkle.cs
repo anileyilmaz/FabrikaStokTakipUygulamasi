@@ -100,7 +100,7 @@ namespace FabrikaStokTakipUygulamasi
         {
             if (_secilenPdfData != null)
             {
-                lblPdfDurum.Text      = $"✔ {_secilenPdfAdi}";
+                lblPdfDurum.Text      = _secilenPdfAdi;
                 lblPdfDurum.ForeColor = Color.FromArgb(39, 174, 96);
                 btnPdfKaldir.Visible  = true;
             }

@@ -214,7 +214,7 @@ namespace FabrikaStokTakipUygulamasi
         {
             if (_yeniPdfData != null)
             {
-                lblPdfDurum.Text      = $"✔ {_yeniPdfAdi}";
+                lblPdfDurum.Text      = _yeniPdfAdi;
                 lblPdfDurum.ForeColor = Color.FromArgb(39, 174, 96);
                 btnPdfSil.Visible     = true;
             }

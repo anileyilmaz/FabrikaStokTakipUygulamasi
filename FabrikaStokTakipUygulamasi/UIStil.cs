@@ -60,17 +60,6 @@ namespace FabrikaStokTakipUygulamasi
 
         // ── Yardımcı uygulama metodları ─────────────────────────────────────
 
-        /// <summary>Flat, kenarlıksız, el imleçli buton stilini uygular.</summary>
-        public static void FlatBuyuk(Button b, Color arka, Color? yazi = null)
-        {
-            b.FlatStyle = FlatStyle.Flat;
-            b.FlatAppearance.BorderSize = 0;
-            b.BackColor = arka;
-            b.ForeColor = yazi ?? Beyaz;
-            b.Cursor = Cursors.Hand;
-            b.Font = ButonYazi();
-        }
-
         /// <summary>
         /// Bir butona sol tarafta Segoe MDL2 Assets glyph ikonu çizer.
         /// ÖNEMLİ: Button.Text tek bir Font kullanır, bu yüzden ikon karakterini doğrudan
@@ -106,25 +95,5 @@ namespace FabrikaStokTakipUygulamasi
                 ForeColor = renk,
                 AutoSize = true
             };
-
-        /// <summary>Tüm DataGridView'lerde kullanılan tutarlı kurumsal grid görünümü.</summary>
-        public static void GridTemasi(DataGridView dgv)
-        {
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.BorderStyle = BorderStyle.None;
-            dgv.GridColor = Color.FromArgb(220, 220, 220);
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Lacivert;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Beyaz;
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 9.5f, FontStyle.Bold);
-            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Lacivert;
-            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Beyaz;
-            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgv.ColumnHeadersHeight = 40;
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.RowTemplate.Height = 32;
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 250);
-            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(174, 214, 241);
-            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
-        }
     }
 }

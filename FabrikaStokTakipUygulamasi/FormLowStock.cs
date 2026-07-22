@@ -9,6 +9,9 @@ namespace FabrikaStokTakipUygulamasi
         public FormLowStock()
         {
             InitializeComponent();
+
+            btnYeni.Paint     += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ekle,    btnYeni.ClientRectangle,    Color.White);
+            btnDuzenle.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Duzenle, btnDuzenle.ClientRectangle, Color.Black);
         }
 
         private void FormLowStock_Load(object sender, EventArgs e)

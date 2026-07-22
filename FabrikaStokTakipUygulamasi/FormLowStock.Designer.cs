@@ -65,9 +65,10 @@ namespace FabrikaStokTakipUygulamasi
             btnYeni.Location = new System.Drawing.Point(19, 18);
             btnYeni.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnYeni.Name = "btnYeni";
+            btnYeni.Padding = new System.Windows.Forms.Padding(26, 0, 0, 0);
             btnYeni.Size = new System.Drawing.Size(128, 44);
             btnYeni.TabIndex = 0;
-            btnYeni.Text = "＋ Yeni";
+            btnYeni.Text = "Yeni";
             btnYeni.UseVisualStyleBackColor = false;
             btnYeni.Click += btnYeni_Click;
             // 
@@ -82,9 +83,10 @@ namespace FabrikaStokTakipUygulamasi
             btnDuzenle.Location = new System.Drawing.Point(159, 18);
             btnDuzenle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnDuzenle.Name = "btnDuzenle";
+            btnDuzenle.Padding = new System.Windows.Forms.Padding(26, 0, 0, 0);
             btnDuzenle.Size = new System.Drawing.Size(128, 44);
             btnDuzenle.TabIndex = 1;
-            btnDuzenle.Text = "✎ Düzenle";
+            btnDuzenle.Text = "Düzenle";
             btnDuzenle.UseVisualStyleBackColor = false;
             btnDuzenle.Click += btnDuzenle_Click;
             // 

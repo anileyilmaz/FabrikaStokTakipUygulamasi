@@ -174,7 +174,7 @@ namespace FabrikaStokTakipUygulamasi
             switch (dgvKul.Columns[e.ColumnIndex].Name)
             {
                 case "cDurum":
-                    bool aktif = e.Value?.ToString()?.Contains("🟢") == true;
+                    bool aktif = e.Value?.ToString() == LangManager.T("admin.aktif");
                     e.CellStyle.ForeColor = aktif ? CGreen : Color.FromArgb(127, 140, 141);
                     e.CellStyle.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
                     break;
