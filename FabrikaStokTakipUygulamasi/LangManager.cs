@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// Uygulama genelinde TR/EN dil yönetimi.
@@ -35,7 +35,7 @@ namespace StokTakipUI
             ["nav.lowstock"]      = "Kritik Stok",
             ["nav.admin"]         = "🔐  Admin Paneli",
             ["nav.cikis"]         = "⏻  Oturumu Kapat",
-            ["nav.baslik"]        = "STOK TAKİP SİSTEMİ",
+            ["nav.baslik"]        = "FABRİKA STOK TAKİP UYGULAMASI",
 
             // Ürünler sayfası butonları
             ["btn.detay"]         = "Ürün Detay",
@@ -86,7 +86,7 @@ namespace StokTakipUI
             ["genel.hata"]        = "Hata",
             ["genel.basarili"]    = "Başarılı",
             // Login
-            ["login.baslik"]          = "STOK TAKİP SİSTEMİ",
+            ["login.baslik"]          = "FABRİKA STOK TAKİP UYGULAMASI",
             ["login.desc"]            = "Üretim ve depo yönetimi\r\niçin profesyonel stok sistemi",
             ["login.kullanici"]       = "Kullanıcı Adı",
             ["login.sifre"]           = "Şifre",
@@ -219,7 +219,7 @@ namespace StokTakipUI
             ["nav.lowstock"]      = "Low Stock",
             ["nav.admin"]         = "🔐  Admin Panel",
             ["nav.cikis"]         = "⏻  Sign Out",
-            ["nav.baslik"]        = "STOCK TRACKING SYSTEM",
+            ["nav.baslik"]        = "FACTORY STOCK TRACKING APPLICATION",
 
             ["btn.detay"]         = "Product Detail",
             ["btn.duzenle"]       = "Edit",
@@ -310,7 +310,7 @@ namespace StokTakipUI
             ["admin.guncellendi"] = "User updated.",
             ["genel.bilgi"]       = "Info",
 
-            ["login.baslik"]          = "STOCK TRACKING SYSTEM",
+            ["login.baslik"]          = "FACTORY STOCK TRACKING APPLICATION",
             ["login.desc"]            = "Professional stock system\r\nfor production and warehouse management",
             ["login.kullanici"]       = "Username",
             ["login.sifre"]           = "Password",

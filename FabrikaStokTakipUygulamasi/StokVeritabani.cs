@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Npgsql;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public class Urun
     {
