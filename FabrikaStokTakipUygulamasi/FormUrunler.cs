@@ -11,6 +11,11 @@ namespace FabrikaStokTakipUygulamasi
         public FormUrunler()
         {
             InitializeComponent();
+
+            btnDetail.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Dokuman, btnDetail.ClientRectangle, System.Drawing.Color.White);
+            btnEdit.Paint   += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Duzenle, btnEdit.ClientRectangle,   System.Drawing.Color.Black);
+            btnDelete.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Sil,      btnDelete.ClientRectangle, System.Drawing.Color.White);
+            btnExcel.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.DisaAktar, btnExcel.ClientRectangle, System.Drawing.Color.White);
         }
 
         private void FormUrunler_Load(object sender, EventArgs e)

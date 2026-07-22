@@ -55,7 +55,7 @@ namespace FabrikaStokTakipUygulamasi
             // 
             // panelTop
             // 
-            panelTop.BackColor = System.Drawing.Color.Gainsboro;
+            panelTop.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             panelTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelTop.Controls.Add(btnExcel);
             panelTop.Controls.Add(btnDelete);
@@ -71,12 +71,13 @@ namespace FabrikaStokTakipUygulamasi
             // 
             // btnExcel
             // 
-            btnExcel.BackColor = System.Drawing.Color.Green;
+            btnExcel.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
             btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnExcel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
             btnExcel.ForeColor = System.Drawing.Color.Black;
             btnExcel.Location = new System.Drawing.Point(443, 23);
             btnExcel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnExcel.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
             btnExcel.Name = "btnExcel";
             btnExcel.Size = new System.Drawing.Size(128, 46);
             btnExcel.TabIndex = 4;
@@ -86,12 +87,13 @@ namespace FabrikaStokTakipUygulamasi
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = System.Drawing.Color.Maroon;
+            btnDelete.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
             btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnDelete.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
             btnDelete.ForeColor = System.Drawing.Color.Black;
             btnDelete.Location = new System.Drawing.Point(303, 23);
             btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDelete.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(128, 46);
             btnDelete.TabIndex = 3;
@@ -107,6 +109,7 @@ namespace FabrikaStokTakipUygulamasi
             btnEdit.ForeColor = System.Drawing.Color.Black;
             btnEdit.Location = new System.Drawing.Point(163, 23);
             btnEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnEdit.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new System.Drawing.Size(128, 46);
             btnEdit.TabIndex = 2;
@@ -116,11 +119,12 @@ namespace FabrikaStokTakipUygulamasi
             // 
             // btnDetail
             // 
-            btnDetail.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnDetail.BackColor = System.Drawing.Color.FromArgb(44, 62, 80);
             btnDetail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnDetail.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
             btnDetail.Location = new System.Drawing.Point(23, 23);
             btnDetail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDetail.Padding = new System.Windows.Forms.Padding(24, 0, 0, 0);
             btnDetail.Name = "btnDetail";
             btnDetail.Size = new System.Drawing.Size(128, 46);
             btnDetail.TabIndex = 3;
@@ -132,7 +136,7 @@ namespace FabrikaStokTakipUygulamasi
             // 
             lblTotalProduct.AutoSize = true;
             lblTotalProduct.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
-            lblTotalProduct.ForeColor = System.Drawing.Color.DarkGreen;
+            lblTotalProduct.ForeColor = System.Drawing.Color.FromArgb(39, 174, 96);
             lblTotalProduct.Location = new System.Drawing.Point(1108, 35);
             lblTotalProduct.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblTotalProduct.Name = "lblTotalProduct";
@@ -257,7 +261,7 @@ namespace FabrikaStokTakipUygulamasi
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.Gainsboro;
+            BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             ClientSize = new System.Drawing.Size(1381, 763);
             Controls.Add(dgvProducts);
             Controls.Add(panelTop);
