@@ -74,7 +74,7 @@ Replace with:
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
-    <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.9.2" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.2" /> <!-- corrected post-CI: see fix commit d5a36bc -->
   </ItemGroup>
 ```
 
