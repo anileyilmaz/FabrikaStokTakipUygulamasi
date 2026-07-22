@@ -149,10 +149,8 @@ namespace FabrikaStokTakipUygulamasi
 
             try
             {
-                StokVeritabani.UrunEkle(urun);
-                var tumUrunler = StokVeritabani.TumUrunler();
-                if (tumUrunler.Count > 0)
-                    StokVeritabani.HareketKaydet(tumUrunler[0].Id, tumUrunler[0].UrunCinsi, 0, adet);
+                int yeniId = StokVeritabani.UrunEkle(urun);
+                StokVeritabani.HareketKaydet(yeniId, urun.UrunCinsi, 0, adet);
 
                 MessageBox.Show(
                     LangManager.Ingilizce ? "Product added successfully!" : "Ürün başarıyla eklendi!",
@@ -179,18 +177,5 @@ namespace FabrikaStokTakipUygulamasi
         }
 
         private void btnTemizle_Click(object sender, EventArgs e) { TemizleFormulari(); }
-
-        private void label2_Click(object sender, EventArgs e) { }
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
-        private void btnKaydet_Click(object sender, EventArgs e) { }
-        private void label1_Click(object sender, EventArgs e) { }
-        private void label2_Click_1(object sender, EventArgs e) { }
-        private void label3_Click(object sender, EventArgs e) { }
-        private void label4_Click(object sender, EventArgs e) { }
-        private void label5_Click(object sender, EventArgs e) { }
-        private void label1_Click_1(object sender, EventArgs e) { }
-        private void textBox1_TextChanged_1(object sender, EventArgs e) { }
-        private void label1_Click_2(object sender, EventArgs e) { }
-        private void textBox1_TextChanged_2(object sender, EventArgs e) { }
     }
 }
