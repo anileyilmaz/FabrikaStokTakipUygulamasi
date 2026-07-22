@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace FabrikaStokTakipUygulamasi
 {
@@ -26,10 +27,13 @@ namespace FabrikaStokTakipUygulamasi
         private void DiliUygula()
         {
             // İstatistik sayıları
+            int toplam = 0, kritik = 0;
             try
             {
-                label1.Text = StokVeritabani.ToplamUrun().ToString();
-                label4.Text = StokVeritabani.KritikStokSayisi().ToString();
+                toplam = StokVeritabani.ToplamUrun();
+                kritik = StokVeritabani.KritikStokSayisi();
+                label1.Text = toplam.ToString();
+                label4.Text = kritik.ToString();
                 label6.Text = StokVeritabani.FirmaSayisi().ToString();
             }
             catch
@@ -38,6 +42,8 @@ namespace FabrikaStokTakipUygulamasi
                 label4.Text = "—";
                 label6.Text = "—";
             }
+
+            GrafikGuncelle(toplam, kritik);
 
             // Kart başlıkları
             label2.Text = LangManager.T("dash.toplamUrun");
@@ -56,6 +62,31 @@ namespace FabrikaStokTakipUygulamasi
             colDate.HeaderText     = LangManager.T("dash.tablo.tarih");
 
             TabloyuDoldur();
+        }
+
+        private void GrafikGuncelle(int toplam, int kritik)
+        {
+            int normal = System.Math.Max(0, toplam - kritik);
+
+            var seri = chartStokDagilimi.Series["Seri1"];
+            seri.Points.Clear();
+            seri.ChartType = SeriesChartType.Doughnut;
+
+            if (toplam <= 0)
+            {
+                seri.Points.AddXY(LangManager.Ingilizce ? "No data" : "Veri yok", 1);
+                seri.Points[0].Color = System.Drawing.Color.FromArgb(220, 220, 220);
+                seri.Points[0].LegendText = LangManager.Ingilizce ? "No data" : "Veri yok";
+                return;
+            }
+
+            int kritikIdx = seri.Points.AddXY(LangManager.Ingilizce ? "Critical" : "Kritik", kritik);
+            seri.Points[kritikIdx].Color = System.Drawing.Color.FromArgb(192, 57, 43);
+            seri.Points[kritikIdx].LegendText = (LangManager.Ingilizce ? "Critical: " : "Kritik: ") + kritik;
+
+            int normalIdx = seri.Points.AddXY(LangManager.Ingilizce ? "Normal" : "Normal", normal);
+            seri.Points[normalIdx].Color = System.Drawing.Color.FromArgb(41, 128, 185);
+            seri.Points[normalIdx].LegendText = (LangManager.Ingilizce ? "Normal: " : "Normal: ") + normal;
         }
 
         private void TabloyuDoldur()

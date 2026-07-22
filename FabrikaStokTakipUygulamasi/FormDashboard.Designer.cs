@@ -30,17 +30,22 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelTop = new System.Windows.Forms.Panel();
             this.lblDashboard = new System.Windows.Forms.Label();
             this.panelTotal = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblTotalIkon = new System.Windows.Forms.Label();
             this.panelCritical = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.lblCriticalIkon = new System.Windows.Forms.Label();
             this.panelCompany = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblCompanyIkon = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvRecent = new System.Windows.Forms.DataGridView();
             this.colFirma    = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +77,7 @@
             //
             this.lblDashboard.AutoSize = true;
             this.lblDashboard.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDashboard.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
             this.lblDashboard.Location = new System.Drawing.Point(25, 22);
             this.lblDashboard.Name = "lblDashboard";
             this.lblDashboard.Size = new System.Drawing.Size(138, 32);
@@ -84,6 +90,7 @@
             this.panelTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTotal.Controls.Add(this.label2);
             this.panelTotal.Controls.Add(this.label1);
+            this.panelTotal.Controls.Add(this.lblTotalIkon);
             this.panelTotal.Location = new System.Drawing.Point(40, 120);
             this.panelTotal.Name = "panelTotal";
             this.panelTotal.Size = new System.Drawing.Size(250, 120);
@@ -113,10 +120,11 @@
             //
             // panelCritical
             //
-            this.panelCritical.BackColor = System.Drawing.Color.Brown;
+            this.panelCritical.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
             this.panelCritical.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCritical.Controls.Add(this.label3);
             this.panelCritical.Controls.Add(this.label4);
+            this.panelCritical.Controls.Add(this.lblCriticalIkon);
             this.panelCritical.Location = new System.Drawing.Point(320, 120);
             this.panelCritical.Name = "panelCritical";
             this.panelCritical.Size = new System.Drawing.Size(250, 120);
@@ -125,7 +133,7 @@
             // label3
             //
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Brown;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(28, 80);
@@ -147,10 +155,11 @@
             //
             // panelCompany
             //
-            this.panelCompany.BackColor = System.Drawing.Color.OliveDrab;
+            this.panelCompany.BackColor = System.Drawing.Color.FromArgb(41, 128, 185);
             this.panelCompany.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCompany.Controls.Add(this.label5);
             this.panelCompany.Controls.Add(this.label6);
+            this.panelCompany.Controls.Add(this.lblCompanyIkon);
             this.panelCompany.Location = new System.Drawing.Point(600, 120);
             this.panelCompany.Name = "panelCompany";
             this.panelCompany.Size = new System.Drawing.Size(250, 120);
@@ -177,6 +186,56 @@
             this.label6.Size = new System.Drawing.Size(60, 47);
             this.label6.TabIndex = 0;
             this.label6.Text = "24";
+            //
+            // lblTotalIkon
+            //
+            this.lblTotalIkon.AutoSize = true;
+            this.lblTotalIkon.Font = new System.Drawing.Font("Segoe MDL2 Assets", 22F);
+            this.lblTotalIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
+            this.lblTotalIkon.Location = new System.Drawing.Point(195, 12);
+            this.lblTotalIkon.Name = "lblTotalIkon";
+            this.lblTotalIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Kutu;
+            //
+            // lblCriticalIkon
+            //
+            this.lblCriticalIkon.AutoSize = true;
+            this.lblCriticalIkon.Font = new System.Drawing.Font("Segoe MDL2 Assets", 22F);
+            this.lblCriticalIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
+            this.lblCriticalIkon.Location = new System.Drawing.Point(195, 12);
+            this.lblCriticalIkon.Name = "lblCriticalIkon";
+            this.lblCriticalIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Uyarim;
+            //
+            // lblCompanyIkon
+            //
+            this.lblCompanyIkon.AutoSize = true;
+            this.lblCompanyIkon.Font = new System.Drawing.Font("Segoe MDL2 Assets", 22F);
+            this.lblCompanyIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
+            this.lblCompanyIkon.Location = new System.Drawing.Point(195, 12);
+            this.lblCompanyIkon.Name = "lblCompanyIkon";
+            this.lblCompanyIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Kisiler;
+            //
+            // chartStokDagilimi
+            //
+            this.chartStokDagilimi = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chartStokDagilimi)).BeginInit();
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.chartStokDagilimi.ChartAreas.Add(chartArea1);
+            this.chartStokDagilimi.BackColor = System.Drawing.Color.White;
+            this.chartStokDagilimi.BorderlineColor = System.Drawing.Color.FromArgb(189, 195, 199);
+            this.chartStokDagilimi.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            this.chartStokDagilimi.BorderlineWidth = 1;
+            this.chartStokDagilimi.Location = new System.Drawing.Point(890, 120);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.Name = "Seri1";
+            series1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.chartStokDagilimi.Series.Add(series1);
+            this.chartStokDagilimi.Name = "chartStokDagilimi";
+            this.chartStokDagilimi.Size = new System.Drawing.Size(254, 120);
+            this.chartStokDagilimi.TabIndex = 5;
+            this.chartStokDagilimi.Text = "chartStokDagilimi";
+            ((System.ComponentModel.ISupportInitialize)(this.chartStokDagilimi)).EndInit();
             //
             // label7
             //
@@ -211,7 +270,7 @@
             this.dgvRecent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { colFirma, colMaterial, colGrade, colThk, colWidth, colLength, colStok, colDate });
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -251,8 +310,9 @@
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             this.ClientSize = new System.Drawing.Size(1184, 661);
+            this.Controls.Add(this.chartStokDagilimi);
             this.Controls.Add(this.dgvRecent);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panelCompany);
@@ -283,13 +343,17 @@
         private System.Windows.Forms.Panel panelTotal;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTotalIkon;
         private System.Windows.Forms.Panel panelCritical;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCriticalIkon;
         private System.Windows.Forms.Panel panelCompany;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblCompanyIkon;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartStokDagilimi;
         private System.Windows.Forms.DataGridView dgvRecent;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFirma;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMaterial;
