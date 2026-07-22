@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public partial class FormUrunEkle : Form
     {

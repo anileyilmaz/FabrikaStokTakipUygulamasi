@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public partial class FormLogin : Form
     {

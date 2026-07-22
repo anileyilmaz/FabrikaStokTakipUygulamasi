@@ -1,4 +1,4 @@
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     partial class FormLogin
     {
@@ -53,7 +53,7 @@ namespace StokTakipUI
             lblTitle.Location  = new System.Drawing.Point(52, 185);
             lblTitle.Name      = "lblTitle";
             lblTitle.Size      = new System.Drawing.Size(303, 138);
-            lblTitle.Text      = "STOK TAKİP SİSTEMİ";
+            lblTitle.Text      = "FABRİKA STOK TAKİP UYGULAMASI";
 
             // Kullanıcı Adı
             label1.AutoSize  = true;

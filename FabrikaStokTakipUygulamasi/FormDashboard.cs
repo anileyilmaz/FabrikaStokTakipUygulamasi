@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public partial class FormDashboard : Form
     {

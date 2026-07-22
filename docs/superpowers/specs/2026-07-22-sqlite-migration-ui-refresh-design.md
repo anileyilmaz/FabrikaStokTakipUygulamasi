@@ -1,11 +1,11 @@
-# StokTakipUI — SQLite Geçişi, Hata Düzeltmeleri ve Kurumsal UI Yenilemesi
+# FabrikaStokTakipUygulamasi — SQLite Geçişi, Hata Düzeltmeleri ve Kurumsal UI Yenilemesi
 
 **Tarih:** 2026-07-22
 **Durum:** Onay bekliyor
 
 ## Amaç
 
-`StokTakipUI` (WinForms, .NET 8) uygulaması şu anda Railway PostgreSQL'e bağlı çalışıyor; bu internet bağlantısı ve ortam değişkeni kurulumu gerektiriyor. Bu iş üç hedefi kapsar:
+`FabrikaStokTakipUygulamasi` (WinForms, .NET 8) uygulaması şu anda Railway PostgreSQL'e bağlı çalışıyor; bu internet bağlantısı ve ortam değişkeni kurulumu gerektiriyor. Bu iş üç hedefi kapsar:
 
 1. Veritabanını tekrar yerel SQLite'a çevirmek (tek makine, dosya tabanlı, kurulumsuz).
 2. İnceleme sırasında bulunan hataları ve bir güvenlik açığını (düz metin şifre) düzeltmek.
@@ -24,10 +24,10 @@
 ## 1) Veritabanı: PostgreSQL → SQLite
 
 ### Paket değişikliği
-- `StokTakipUI.csproj`: `Npgsql` referansı kaldırılır, `Microsoft.Data.Sqlite` (8.x) eklenir.
+- `FabrikaStokTakipUygulamasi.csproj`: `Npgsql` referansı kaldırılır, `Microsoft.Data.Sqlite` (8.x) eklenir.
 
 ### Bağlantı ve konum
-- Veritabanı dosyası: `%AppData%\StokTakipUI\stok.db` (klasör yoksa oluşturulur).
+- Veritabanı dosyası: `%AppData%\FabrikaStokTakipUygulamasi\stok.db` (klasör yoksa oluşturulur).
 - `StokVeritabani.YeniBaglanti()` artık `SqliteConnection` döndürür; Railway'e özgü `STOK_DB_URL`/`DATABASE_PUBLIC_URL`/`DATABASE_URL` ortam değişkeni okuma mantığı tamamen kaldırılır.
 
 ### Şema dönüşümü (`Baslat()`)
@@ -112,7 +112,7 @@ Form1 (sidebar/nav), FormLogin, FormDashboard, FormUrunler, FormUrunEkle, FormUr
 ## Test / Doğrulama Planı
 
 - **Önemli kısıt**: Bu ortam macOS'tur ve üzerinde .NET SDK / Windows Desktop çalışma zamanı yoktur, dolayısıyla WinForms + net8.0-windows projesi burada **derlenip çalıştırılamaz**. Kod satır satır gözden geçirilerek (statik analiz) doğru yazılacak, ama gerçek derleme ve çalıştırma testi Windows + Visual Studio 2022 üzerinde sizin tarafınızdan yapılmalı.
-- Sizin yapmanız gereken doğrulamalar: `Ctrl+Shift+B` ile derleme hatasız geçiyor mu, ilk açılışta `%AppData%\StokTakipUI\stok.db` otomatik oluşuyor mu, varsayılan kullanıcılarla giriş yapılabiliyor mu.
+- Sizin yapmanız gereken doğrulamalar: `Ctrl+Shift+B` ile derleme hatasız geçiyor mu, ilk açılışta `%AppData%\FabrikaStokTakipUygulamasi\stok.db` otomatik oluşuyor mu, varsayılan kullanıcılarla giriş yapılabiliyor mu.
 - Ürün ekle/düzenle/sil/ara/excel aktar/low-stock akışlarının manuel olarak denenmesi (WinForms için otomatik UI testi kapsam dışı).
 - Giriş: doğru/yanlış şifre, "oturumu açık tut" ile yeniden başlatma senaryosu.
 - Admin panelinde kullanıcı ekleme/düzenleme/silme, şifre alanının artık boş geldiğinin doğrulanması.

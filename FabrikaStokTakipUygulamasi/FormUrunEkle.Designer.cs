@@ -1,4 +1,4 @@
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     partial class FormUrunEkle
     {

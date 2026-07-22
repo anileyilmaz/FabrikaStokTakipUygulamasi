@@ -4,8 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>StokTakipUI</AssemblyName>
-    <RootNamespace>StokTakipUI</RootNamespace>
+    <AssemblyName>FabrikaStokTakipUygulamasi</AssemblyName>
+    <RootNamespace>FabrikaStokTakipUygulamasi</RootNamespace>
+    <AssemblyTitle>Fabrika Stok Takip Uygulaması</AssemblyTitle>
+    <Product>Fabrika Stok Takip Uygulaması</Product>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationVisualStyles>true</ApplicationVisualStyles>

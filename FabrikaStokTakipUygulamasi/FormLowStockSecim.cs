@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// "Yeni" veya "Düzenle" modunda açılan popup form.

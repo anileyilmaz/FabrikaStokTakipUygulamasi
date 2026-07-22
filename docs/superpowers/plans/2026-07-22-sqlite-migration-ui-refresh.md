@@ -1,10 +1,10 @@
-# StokTakipUI — SQLite Geçişi, Hata Düzeltmeleri ve Kurumsal UI Yenilemesi — Uygulama Planı
+# FabrikaStokTakipUygulamasi — SQLite Geçişi, Hata Düzeltmeleri ve Kurumsal UI Yenilemesi — Uygulama Planı
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Revert `StokTakipUI` (WinForms, .NET 8) from Railway PostgreSQL back to local SQLite, fix the bugs/security issues found during review, and refresh the UI into a consistent corporate look (navy/blue palette, Segoe MDL2 Assets glyph icons, no emoji).
+**Goal:** Revert `FabrikaStokTakipUygulamasi` (WinForms, .NET 8) from Railway PostgreSQL back to local SQLite, fix the bugs/security issues found during review, and refresh the UI into a consistent corporate look (navy/blue palette, Segoe MDL2 Assets glyph icons, no emoji).
 
-**Architecture:** Data layer (`StokVeritabani.cs`, `KullaniciYonetici.cs`) is rewritten from Npgsql to `Microsoft.Data.Sqlite`, storing a single file at `%AppData%\StokTakipUI\stok.db`. A new `Guvenlik.cs` centralizes PBKDF2 password hashing. A new `UIStil.cs` centralizes the corporate color palette, typography, and Segoe MDL2 Assets glyph constants, applied consistently across every form (both code-built forms and WinForms-Designer-based forms).
+**Architecture:** Data layer (`StokVeritabani.cs`, `KullaniciYonetici.cs`) is rewritten from Npgsql to `Microsoft.Data.Sqlite`, storing a single file at `%AppData%\FabrikaStokTakipUygulamasi\stok.db`. A new `Guvenlik.cs` centralizes PBKDF2 password hashing. A new `UIStil.cs` centralizes the corporate color palette, typography, and Segoe MDL2 Assets glyph constants, applied consistently across every form (both code-built forms and WinForms-Designer-based forms).
 
 **Tech Stack:** .NET 8 (`net8.0-windows`), WinForms, `Microsoft.Data.Sqlite`, `System.Security.Cryptography.ProtectedData` (DPAPI), `System.Windows.Forms.DataVisualization` (Chart control).
 
@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Target framework stays `net8.0-windows`; do not change `TargetFramework`, `UseWindowsForms`, or other existing `<PropertyGroup>` settings in `StokTakipUI.csproj` beyond what each task specifies.
+- Target framework stays `net8.0-windows`; do not change `TargetFramework`, `UseWindowsForms`, or other existing `<PropertyGroup>` settings in `FabrikaStokTakipUygulamasi.csproj` beyond what each task specifies.
 - No Railway/Postgres data migration — the new SQLite database starts empty; default users are seeded fresh.
 - No dark mode / theme switching.
 - No real animations (fade/slide) — only hover/pressed color feedback via `FlatAppearance`.
@@ -28,39 +28,39 @@
 
 | File | Change |
 |---|---|
-| `StokTakipUI/StokTakipUI.csproj` | Swap `Npgsql` → `Microsoft.Data.Sqlite`; add `System.Security.Cryptography.ProtectedData`, `System.Windows.Forms.DataVisualization` |
-| `StokTakipUI/Guvenlik.cs` | **New.** PBKDF2 password hash/verify helper |
-| `StokTakipUI/UIStil.cs` | **New.** Shared corporate colors, fonts, Segoe MDL2 Assets glyph constants, DataGridView/Button styling helpers |
-| `StokTakipUI/StokVeritabani.cs` | Rewritten: SQLite connection/schema, `UrunEkle` now returns the new row's `int Id` |
-| `StokTakipUI/KullaniciYonetici.cs` | Rewritten: SQLite connection, PBKDF2 hashing, blank-password-keeps-current update semantics |
-| `StokTakipUI/OturumAyarlari.cs` | DPAPI-encrypt the stored "keep me logged in" password |
-| `StokTakipUI/FormUrunEkle.cs` | Use `UrunEkle`'s returned Id instead of re-querying; delete dead Designer-artifact handlers |
-| `StokTakipUI/FormAdmin.cs` | Password field no longer shows plaintext/hash on edit; blank means "keep current"; fixed-length dot mask |
-| `StokTakipUI/Form1.cs`, `Form1.Designer.cs` | Corporate glyphs on sidebar nav buttons |
-| `StokTakipUI/FormLogin.cs`, `FormLogin.Designer.cs` | Corporate glyphs, minor visual cleanup |
-| `StokTakipUI/FormDashboard.cs`, `FormDashboard.Designer.cs` | Full visual rebuild: navy/blue stat cards with icons, chart |
-| `StokTakipUI/FormUrunler.cs`, `FormUrunler.Designer.cs` | Corporate colors/icons on toolbar and grid |
-| `StokTakipUI/FormArama.cs`, `FormArama.Designer.cs` | Corporate background/icons |
-| `StokTakipUI/FormUrunEkle.Designer.cs` | Corporate colors/fonts/icons |
-| `StokTakipUI/FormUrunDuzenle.cs`, `FormLowStock.cs`, `FormLowStockSecim.cs`, `FormLowStockLimit.cs`, `FormUrunDetay.cs`, `FormSilOnay.cs`, `FormAdmin.cs` | Swap local color constants / emoji for `UIStil` glyphs and colors |
+| `FabrikaStokTakipUygulamasi/FabrikaStokTakipUygulamasi.csproj` | Swap `Npgsql` → `Microsoft.Data.Sqlite`; add `System.Security.Cryptography.ProtectedData`, `System.Windows.Forms.DataVisualization` |
+| `FabrikaStokTakipUygulamasi/Guvenlik.cs` | **New.** PBKDF2 password hash/verify helper |
+| `FabrikaStokTakipUygulamasi/UIStil.cs` | **New.** Shared corporate colors, fonts, Segoe MDL2 Assets glyph constants, DataGridView/Button styling helpers |
+| `FabrikaStokTakipUygulamasi/StokVeritabani.cs` | Rewritten: SQLite connection/schema, `UrunEkle` now returns the new row's `int Id` |
+| `FabrikaStokTakipUygulamasi/KullaniciYonetici.cs` | Rewritten: SQLite connection, PBKDF2 hashing, blank-password-keeps-current update semantics |
+| `FabrikaStokTakipUygulamasi/OturumAyarlari.cs` | DPAPI-encrypt the stored "keep me logged in" password |
+| `FabrikaStokTakipUygulamasi/FormUrunEkle.cs` | Use `UrunEkle`'s returned Id instead of re-querying; delete dead Designer-artifact handlers |
+| `FabrikaStokTakipUygulamasi/FormAdmin.cs` | Password field no longer shows plaintext/hash on edit; blank means "keep current"; fixed-length dot mask |
+| `FabrikaStokTakipUygulamasi/Form1.cs`, `Form1.Designer.cs` | Corporate glyphs on sidebar nav buttons |
+| `FabrikaStokTakipUygulamasi/FormLogin.cs`, `FormLogin.Designer.cs` | Corporate glyphs, minor visual cleanup |
+| `FabrikaStokTakipUygulamasi/FormDashboard.cs`, `FormDashboard.Designer.cs` | Full visual rebuild: navy/blue stat cards with icons, chart |
+| `FabrikaStokTakipUygulamasi/FormUrunler.cs`, `FormUrunler.Designer.cs` | Corporate colors/icons on toolbar and grid |
+| `FabrikaStokTakipUygulamasi/FormArama.cs`, `FormArama.Designer.cs` | Corporate background/icons |
+| `FabrikaStokTakipUygulamasi/FormUrunEkle.Designer.cs` | Corporate colors/fonts/icons |
+| `FabrikaStokTakipUygulamasi/FormUrunDuzenle.cs`, `FormLowStock.cs`, `FormLowStockSecim.cs`, `FormLowStockLimit.cs`, `FormUrunDetay.cs`, `FormSilOnay.cs`, `FormAdmin.cs` | Swap local color constants / emoji for `UIStil` glyphs and colors |
 | `KURULUM.md` | Updated to reflect SQLite-only setup |
 | `RAILWAY_DATABASE_KURULUM.md` | Deleted |
 
-**Compile-state note:** Tasks 1, 3, and 4 swap the database provider across interdependent files (`StokTakipUI.csproj`, `StokVeritabani.cs`, `KullaniciYonetici.cs`). The project will **not compile** in the commits between Task 1 and Task 4 — e.g. right after Task 1 removes the `Npgsql` package, `KullaniciYonetici.cs` still references `NpgsqlConnection` until Task 4 rewrites it. This is expected and unavoidable for a single-provider swap touching two mutually-referencing files; it is not a sign of a mistake. Compilation is only expected to succeed again starting at Task 4's commit, and should stay green for every commit from Task 4 onward (verified by the human operator in Task 17, since this environment cannot run a compiler — see Global Constraints).
+**Compile-state note:** Tasks 1, 3, and 4 swap the database provider across interdependent files (`FabrikaStokTakipUygulamasi.csproj`, `StokVeritabani.cs`, `KullaniciYonetici.cs`). The project will **not compile** in the commits between Task 1 and Task 4 — e.g. right after Task 1 removes the `Npgsql` package, `KullaniciYonetici.cs` still references `NpgsqlConnection` until Task 4 rewrites it. This is expected and unavoidable for a single-provider swap touching two mutually-referencing files; it is not a sign of a mistake. Compilation is only expected to succeed again starting at Task 4's commit, and should stay green for every commit from Task 4 onward (verified by the human operator in Task 17, since this environment cannot run a compiler — see Global Constraints).
 
 ---
 
 ### Task 1: NuGet paket geçişi
 
 **Files:**
-- Modify: `StokTakipUI/StokTakipUI.csproj`
+- Modify: `FabrikaStokTakipUygulamasi/FabrikaStokTakipUygulamasi.csproj`
 
 **Interfaces:**
 - Produces: `Microsoft.Data.Sqlite` namespace available to all later tasks; `System.Security.Cryptography.ProtectedData` (DPAPI) available to Task 5; `System.Windows.Forms.DataVisualization.Charting` available to Task 11.
 
 - [ ] **Step 1: Replace the package references**
 
-Current content of `StokTakipUI/StokTakipUI.csproj`:
+Current content of `FabrikaStokTakipUygulamasi/FabrikaStokTakipUygulamasi.csproj`:
 
 ```xml
   <ItemGroup>
@@ -85,7 +85,7 @@ Read the file back and confirm: no remaining `Npgsql` reference anywhere in the 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add StokTakipUI/StokTakipUI.csproj
+git add FabrikaStokTakipUygulamasi/FabrikaStokTakipUygulamasi.csproj
 git commit -m "build: replace Npgsql with Microsoft.Data.Sqlite, add DPAPI and Chart packages"
 ```
 
@@ -94,7 +94,7 @@ git commit -m "build: replace Npgsql with Microsoft.Data.Sqlite, add DPAPI and C
 ### Task 2: Şifre hash'leme yardımcı sınıfı (`Guvenlik.cs`)
 
 **Files:**
-- Create: `StokTakipUI/Guvenlik.cs`
+- Create: `FabrikaStokTakipUygulamasi/Guvenlik.cs`
 
 **Interfaces:**
 - Produces: `public static class Guvenlik` with `string SifreyiHashle(string duzMetinSifre)` and `bool SifreDogrula(string duzMetinSifre, string saklananHash)` — consumed by Task 4 (`KullaniciYonetici.cs`).
@@ -105,7 +105,7 @@ git commit -m "build: replace Npgsql with Microsoft.Data.Sqlite, add DPAPI and C
 using System;
 using System.Security.Cryptography;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// PBKDF2 tabanlı şifre hash'leme. Saklanan format: "{iterasyon}.{tuzBase64}.{hashBase64}".
@@ -159,7 +159,7 @@ Confirm the file compiles conceptually: `Rfc2898DeriveBytes.Pbkdf2` is a static 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add StokTakipUI/Guvenlik.cs
+git add FabrikaStokTakipUygulamasi/Guvenlik.cs
 git commit -m "feat: add PBKDF2 password hashing helper"
 ```
 
@@ -168,7 +168,7 @@ git commit -m "feat: add PBKDF2 password hashing helper"
 ### Task 3: `StokVeritabani.cs` — SQLite'a geçiş
 
 **Files:**
-- Modify (full rewrite): `StokTakipUI/StokVeritabani.cs`
+- Modify (full rewrite): `FabrikaStokTakipUygulamasi/StokVeritabani.cs`
 
 **Interfaces:**
 - Consumes: `Guvenlik` is not used directly here (only by `KullaniciYonetici`).
@@ -182,7 +182,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Data.Sqlite;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public class Urun
     {
@@ -222,7 +222,7 @@ namespace StokTakipUI
     {
         private static string _baglantiString;
 
-        /// <summary>%AppData%\StokTakipUI\stok.db — tek makine, dosya tabanlı veritabanı.</summary>
+        /// <summary>%AppData%\FabrikaStokTakipUygulamasi\stok.db — tek makine, dosya tabanlı veritabanı.</summary>
         private static string BaglantiString
         {
             get
@@ -231,7 +231,7 @@ namespace StokTakipUI
 
                 string klasor = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "StokTakipUI");
+                    "FabrikaStokTakipUygulamasi");
                 Directory.CreateDirectory(klasor);
                 string dosyaYolu = Path.Combine(klasor, "stok.db");
 
@@ -561,7 +561,7 @@ Confirm every `BYTEA` → `BLOB`, every `SERIAL PRIMARY KEY` → `INTEGER PRIMAR
 - [ ] **Step 3: Commit**
 
 ```bash
-git add StokTakipUI/StokVeritabani.cs
+git add FabrikaStokTakipUygulamasi/StokVeritabani.cs
 git commit -m "feat: migrate StokVeritabani from PostgreSQL to local SQLite"
 ```
 
@@ -571,7 +571,7 @@ git commit -m "feat: migrate StokVeritabani from PostgreSQL to local SQLite"
 ### Task 4: `KullaniciYonetici.cs` — SQLite + şifre hash'leme
 
 **Files:**
-- Modify (full rewrite): `StokTakipUI/KullaniciYonetici.cs`
+- Modify (full rewrite): `FabrikaStokTakipUygulamasi/KullaniciYonetici.cs`
 
 **Interfaces:**
 - Consumes: `Guvenlik.SifreyiHashle(string)`, `Guvenlik.SifreDogrula(string, string)` from Task 2; `StokVeritabani.YeniBaglanti()` returning `SqliteConnection` from Task 3.
@@ -584,7 +584,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     public enum KullaniciRol { Admin, Muhendis, DepoPersoneli }
 
@@ -872,7 +872,7 @@ Cross-check `Task 3`'s `StokVeritabani.Baslat()` calls `KullaniciYonetici.Tabloy
 - [ ] **Step 3: Commit**
 
 ```bash
-git add StokTakipUI/KullaniciYonetici.cs
+git add FabrikaStokTakipUygulamasi/KullaniciYonetici.cs
 git commit -m "feat: migrate KullaniciYonetici to SQLite with PBKDF2 password hashing"
 ```
 
@@ -881,7 +881,7 @@ git commit -m "feat: migrate KullaniciYonetici to SQLite with PBKDF2 password ha
 ### Task 5: "Oturumu açık tut" dosyasını DPAPI ile şifrele
 
 **Files:**
-- Modify: `StokTakipUI/OturumAyarlari.cs`
+- Modify: `FabrikaStokTakipUygulamasi/OturumAyarlari.cs`
 
 **Interfaces:**
 - Produces: same public signatures as before — `Kaydet(bool, string, string)`, `Oku()` returning `(bool acikTut, string kullaniciAdi, string sifre)` — callers in `FormLogin.cs` and `Form1.cs` are unchanged.
@@ -895,7 +895,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// "Oturumu açık tut" tercihini ve kaydedilmiş kullanıcı bilgisini
@@ -907,11 +907,11 @@ namespace StokTakipUI
     {
         private static readonly string DosyaYolu = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "StokTakipUI",
+            "FabrikaStokTakipUygulamasi",
             "oturum.json");
 
         // DPAPI'nin ek doğrulama verisi (entropy) — dosya başka bir amaçla kullanılmaya çalışılırsa çözülemesin diye.
-        private static readonly byte[] Entropy = Encoding.UTF8.GetBytes("StokTakipUI.OturumAyarlari.v1");
+        private static readonly byte[] Entropy = Encoding.UTF8.GetBytes("FabrikaStokTakipUygulamasi.OturumAyarlari.v1");
 
         private class AyarModel
         {
@@ -988,7 +988,7 @@ Confirm `ProtectedData` and `DataProtectionScope` resolve from the `System.Secur
 - [ ] **Step 3: Commit**
 
 ```bash
-git add StokTakipUI/OturumAyarlari.cs
+git add FabrikaStokTakipUygulamasi/OturumAyarlari.cs
 git commit -m "fix: encrypt the \"keep me logged in\" password with Windows DPAPI instead of storing it in plaintext"
 ```
 
@@ -997,7 +997,7 @@ git commit -m "fix: encrypt the \"keep me logged in\" password with Windows DPAP
 ### Task 6: `FormUrunEkle.cs` — kırılgan Id varsayımını düzelt, ölü kodu temizle
 
 **Files:**
-- Modify: `StokTakipUI/FormUrunEkle.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunEkle.cs`
 
 **Interfaces:**
 - Consumes: `StokVeritabani.UrunEkle(Urun)` now returns `int` (Task 3).
@@ -1026,7 +1026,7 @@ Replace with:
 
 - [ ] **Step 2: Delete the dead Designer-artifact handlers**
 
-Confirmed via `grep -n "label1_Click\|label2_Click\|label3_Click\|label4_Click\|label5_Click\|textBox1_TextChanged\|btnKaydet_Click" StokTakipUI/FormUrunEkle.Designer.cs` that none of these names appear in the Designer file — they are unwired, unused methods. Delete this block from the end of `FormUrunEkle.cs`:
+Confirmed via `grep -n "label1_Click\|label2_Click\|label3_Click\|label4_Click\|label5_Click\|textBox1_TextChanged\|btnKaydet_Click" FabrikaStokTakipUygulamasi/FormUrunEkle.Designer.cs` that none of these names appear in the Designer file — they are unwired, unused methods. Delete this block from the end of `FormUrunEkle.cs`:
 
 ```csharp
         private void label2_Click(object sender, EventArgs e) { }
@@ -1052,7 +1052,7 @@ Re-read the file: `btnUrunEkle_Click` no longer calls `TumUrunler()` at all in i
 - [ ] **Step 4: Commit**
 
 ```bash
-git add StokTakipUI/FormUrunEkle.cs
+git add FabrikaStokTakipUygulamasi/FormUrunEkle.cs
 git commit -m "fix: use UrunEkle's returned Id instead of re-querying, remove dead Designer-artifact handlers"
 ```
 
@@ -1061,7 +1061,7 @@ git commit -m "fix: use UrunEkle's returned Id instead of re-querying, remove de
 ### Task 7: `FormAdmin.cs` — şifre alanı artık düz metin göstermiyor
 
 **Files:**
-- Modify: `StokTakipUI/FormAdmin.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormAdmin.cs`
 
 **Interfaces:**
 - Consumes: `KullaniciYonetici.KullaniciGuncelle` — blank `yeniSifre` now means "keep current" (Task 4).
@@ -1136,7 +1136,7 @@ Re-read the full `AcKullaniciFrm` method: for a new user (`yeni == true`), passw
 - [ ] **Step 5: Commit**
 
 ```bash
-git add StokTakipUI/FormAdmin.cs
+git add FabrikaStokTakipUygulamasi/FormAdmin.cs
 git commit -m "fix: stop displaying stored password hash in the admin user-edit dialog"
 ```
 
@@ -1145,7 +1145,7 @@ git commit -m "fix: stop displaying stored password hash in the admin user-edit 
 ### Task 8: Ortak kurumsal tema yardımcı sınıfı (`UIStil.cs`)
 
 **Files:**
-- Create: `StokTakipUI/UIStil.cs`
+- Create: `FabrikaStokTakipUygulamasi/UIStil.cs`
 
 **Interfaces:**
 - Produces: `public static class UIStil` with color constants, font factory methods, a nested `public static class Glyph` (Segoe MDL2 Assets glyph string constants), and helper methods `FlatBuyuk(Button, Color, Color?)`, `SolIkonCiz(Graphics, string, Rectangle, Color, float)` (paints a glyph inside a button's left padding — see the code comment for why this is needed instead of concatenating the glyph into `Button.Text`), `IkonLabel(string, Color, float)` (a small Label showing just a glyph, for pairing next to a text Label), and `GridTemasi(DataGridView)`. Consumed by Tasks 9–15 (every form's UI polish).
@@ -1156,7 +1156,7 @@ git commit -m "fix: stop displaying stored password hash in the admin user-edit 
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// Kurumsal tema: ortak renkler, tipografi ve Segoe MDL2 Assets glyph sabitleri.
@@ -1317,7 +1317,7 @@ The codepoints above were chosen from memory against the well-known Segoe MDL2 A
 - [ ] **Step 4: Commit**
 
 ```bash
-git add StokTakipUI/UIStil.cs
+git add FabrikaStokTakipUygulamasi/UIStil.cs
 git commit -m "feat: add shared corporate theme helper (colors, fonts, Segoe MDL2 Assets glyphs)"
 ```
 
@@ -1326,8 +1326,8 @@ git commit -m "feat: add shared corporate theme helper (colors, fonts, Segoe MDL
 ### Task 9: Form1 (kenar çubuğu/nav) — kurumsal ikonlar
 
 **Files:**
-- Modify: `StokTakipUI/Form1.cs`
-- Modify: `StokTakipUI/Form1.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/Form1.cs`
+- Modify: `FabrikaStokTakipUygulamasi/Form1.Designer.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.Glyph.*`, `UIStil.SolIkonCiz` from Task 8.
@@ -1435,7 +1435,7 @@ Re-read `Form1.cs`: confirm the six `Paint` handlers reference the exact button 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add StokTakipUI/Form1.cs StokTakipUI/Form1.Designer.cs
+git add FabrikaStokTakipUygulamasi/Form1.cs FabrikaStokTakipUygulamasi/Form1.Designer.cs
 git commit -m "style: add corporate Segoe MDL2 Assets icons to the sidebar nav"
 ```
 
@@ -1444,8 +1444,8 @@ git commit -m "style: add corporate Segoe MDL2 Assets icons to the sidebar nav"
 ### Task 10: FormLogin — kurumsal ikonlar ve renk hizalaması
 
 **Files:**
-- Modify: `StokTakipUI/FormLogin.cs`
-- Modify: `StokTakipUI/FormLogin.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormLogin.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormLogin.Designer.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.Glyph.*`, `UIStil.SolIkonCiz`, `UIStil.Mavi`, `UIStil.GriAcik` from Task 8.
@@ -1462,8 +1462,8 @@ In `FormLogin.Designer.cs`:
 Replace with:
 
 ```csharp
-            btnGozToggle.Text                   = StokTakipUI.UIStil.Glyph.Goz;
-            btnGozToggle.Font                   = StokTakipUI.UIStil.GlyphFont(11f);
+            btnGozToggle.Text                   = FabrikaStokTakipUygulamasi.UIStil.Glyph.Goz;
+            btnGozToggle.Font                   = FabrikaStokTakipUygulamasi.UIStil.GlyphFont(11f);
 ```
 
 - [ ] **Step 2: `btnDilToggle` mixes an icon with text — widen its padding and paint the globe separately**
@@ -1506,7 +1506,7 @@ Replace with:
             btnDilToggle.TextAlign               = System.Drawing.ContentAlignment.MiddleLeft;
             btnDilToggle.UseVisualStyleBackColor = false;
             btnDilToggle.Click                  += btnDilToggle_Click;
-            btnDilToggle.Paint                  += (s, e) => StokTakipUI.UIStil.SolIkonCiz(e.Graphics, StokTakipUI.UIStil.Glyph.Dunya, btnDilToggle.ClientRectangle, System.Drawing.Color.White, 11f);
+            btnDilToggle.Paint                  += (s, e) => FabrikaStokTakipUygulamasi.UIStil.SolIkonCiz(e.Graphics, FabrikaStokTakipUygulamasi.UIStil.Glyph.Dunya, btnDilToggle.ClientRectangle, System.Drawing.Color.White, 11f);
 ```
 
 - [ ] **Step 3: Update the language-toggle text in `FormLogin.cs` (drop the emoji, icon is now painted, not text)**
@@ -1530,7 +1530,7 @@ In `FormLogin.Designer.cs`:
 ```
 →
 ```csharp
-            BackColor           = StokTakipUI.UIStil.GriAcik;
+            BackColor           = FabrikaStokTakipUygulamasi.UIStil.GriAcik;
 ```
 
 and:
@@ -1540,7 +1540,7 @@ and:
 ```
 →
 ```csharp
-            btnLogin.BackColor               = StokTakipUI.UIStil.Mavi;
+            btnLogin.BackColor               = FabrikaStokTakipUygulamasi.UIStil.Mavi;
 ```
 
 - [ ] **Step 5: Self-review**
@@ -1550,7 +1550,7 @@ Confirm `btnGozToggle_Click` in `FormLogin.cs` (the show/hide password toggle) s
 - [ ] **Step 6: Commit**
 
 ```bash
-git add StokTakipUI/FormLogin.cs StokTakipUI/FormLogin.Designer.cs
+git add FabrikaStokTakipUygulamasi/FormLogin.cs FabrikaStokTakipUygulamasi/FormLogin.Designer.cs
 git commit -m "style: replace emoji with Segoe MDL2 Assets icons on the login screen"
 ```
 
@@ -1559,8 +1559,8 @@ git commit -m "style: replace emoji with Segoe MDL2 Assets icons on the login sc
 ### Task 11: FormDashboard — kurumsal kartlar + stok dağılımı grafiği
 
 **Files:**
-- Modify: `StokTakipUI/FormDashboard.Designer.cs`
-- Modify: `StokTakipUI/FormDashboard.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormDashboard.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormDashboard.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.GriAcik`, `UIStil.Lacivert`, `UIStil.Kritik`, `UIStil.Mavi`, `UIStil.Glyph.*` (Task 8); `StokVeritabani.ToplamUrun()`, `StokVeritabani.KritikStokSayisi()` (unchanged signatures from Task 3); `System.Windows.Forms.DataVisualization.Charting` (Task 1's new package).
@@ -1676,7 +1676,7 @@ Then, right after the `// label6` block (before `// label7`), insert the three i
             this.lblTotalIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
             this.lblTotalIkon.Location = new System.Drawing.Point(195, 12);
             this.lblTotalIkon.Name = "lblTotalIkon";
-            this.lblTotalIkon.Text = StokTakipUI.UIStil.Glyph.Kutu;
+            this.lblTotalIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Kutu;
             //
             // lblCriticalIkon
             //
@@ -1685,7 +1685,7 @@ Then, right after the `// label6` block (before `// label7`), insert the three i
             this.lblCriticalIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
             this.lblCriticalIkon.Location = new System.Drawing.Point(195, 12);
             this.lblCriticalIkon.Name = "lblCriticalIkon";
-            this.lblCriticalIkon.Text = StokTakipUI.UIStil.Glyph.Uyarim;
+            this.lblCriticalIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Uyarim;
             //
             // lblCompanyIkon
             //
@@ -1694,7 +1694,7 @@ Then, right after the `// label6` block (before `// label7`), insert the three i
             this.lblCompanyIkon.ForeColor = System.Drawing.Color.FromArgb(60, 255, 255, 255);
             this.lblCompanyIkon.Location = new System.Drawing.Point(195, 12);
             this.lblCompanyIkon.Name = "lblCompanyIkon";
-            this.lblCompanyIkon.Text = StokTakipUI.UIStil.Glyph.Kisiler;
+            this.lblCompanyIkon.Text = FabrikaStokTakipUygulamasi.UIStil.Glyph.Kisiler;
 ```
 
 (These labels use a semi-transparent white `ForeColor` — GDI+ label rendering honors alpha in `SolidBrush`, so this reads as a subtle watermark icon in the corner of each dark stat card, not a solid white icon competing with the big number.)
@@ -1858,7 +1858,7 @@ Re-read the full `FormDashboard.Designer.cs`: confirm `chartStokDagilimi` is bot
 - [ ] **Step 6: Commit**
 
 ```bash
-git add StokTakipUI/FormDashboard.Designer.cs StokTakipUI/FormDashboard.cs
+git add FabrikaStokTakipUygulamasi/FormDashboard.Designer.cs FabrikaStokTakipUygulamasi/FormDashboard.cs
 git commit -m "style: rebuild Dashboard with corporate colors, stat-card icons, and a stock distribution chart"
 ```
 
@@ -1867,8 +1867,8 @@ git commit -m "style: rebuild Dashboard with corporate colors, stat-card icons, 
 ### Task 12: FormUrunler — kurumsal renkler ve buton ikonları
 
 **Files:**
-- Modify: `StokTakipUI/FormUrunler.Designer.cs`
-- Modify: `StokTakipUI/FormUrunler.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunler.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunler.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.GriAcik`, `UIStil.Lacivert`, `UIStil.Aksan`, `UIStil.Kritik`, `UIStil.Basarili`, `UIStil.Glyph.*`, `UIStil.SolIkonCiz` (Task 8).
@@ -1981,7 +1981,7 @@ Re-read `FormUrunler.Designer.cs`: confirm none of the four buttons' `TextAlign`
 - [ ] **Step 5: Commit**
 
 ```bash
-git add StokTakipUI/FormUrunler.Designer.cs StokTakipUI/FormUrunler.cs
+git add FabrikaStokTakipUygulamasi/FormUrunler.Designer.cs FabrikaStokTakipUygulamasi/FormUrunler.cs
 git commit -m "style: bring FormUrunler onto the corporate palette and add toolbar icons"
 ```
 
@@ -1990,8 +1990,8 @@ git commit -m "style: bring FormUrunler onto the corporate palette and add toolb
 ### Task 13: FormArama — arka plan hizalaması ve arama/temizle ikonları
 
 **Files:**
-- Modify: `StokTakipUI/FormArama.Designer.cs`
-- Modify: `StokTakipUI/FormArama.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormArama.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormArama.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.GriAcik`, `UIStil.Glyph.Ara`, `UIStil.Glyph.Kapat`, `UIStil.SolIkonCiz` (Task 8).
@@ -2068,7 +2068,7 @@ Confirm `FormArama_DilDegisti`/`DildurumUygula` in `FormArama.cs` still only set
 - [ ] **Step 5: Commit**
 
 ```bash
-git add StokTakipUI/FormArama.Designer.cs StokTakipUI/FormArama.cs
+git add FabrikaStokTakipUygulamasi/FormArama.Designer.cs FabrikaStokTakipUygulamasi/FormArama.cs
 git commit -m "style: align FormArama background with the corporate palette, add search/clear icons"
 ```
 
@@ -2077,9 +2077,9 @@ git commit -m "style: align FormArama background with the corporate palette, add
 ### Task 14: FormUrunEkle + FormUrunDuzenle — kurumsal font/renk ve ikonlar
 
 **Files:**
-- Modify: `StokTakipUI/FormUrunEkle.Designer.cs`
-- Modify: `StokTakipUI/FormUrunEkle.cs`
-- Modify: `StokTakipUI/FormUrunDuzenle.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunEkle.Designer.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunEkle.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunDuzenle.cs`
 
 **Interfaces:**
 - Consumes: `UIStil.GriAcik`, `UIStil.Glyph.Ekle`, `UIStil.Glyph.Kapat`, `UIStil.Glyph.Dokuman`, `UIStil.Glyph.Duzenle`, `UIStil.SolIkonCiz`, `UIStil.Lacivert`, `UIStil.GriInput`, `UIStil.GriMetin`, `UIStil.Aksan`, `UIStil.Notr`, `UIStil.Kritik`, `UIStil.Basarili` (Task 8).
@@ -2292,12 +2292,12 @@ Their existing `Size = new Size(185, 34)` already leaves enough left margin for 
 
 - [ ] **Step 6: Self-review**
 
-Grep `StokTakipUI/FormUrunEkle.Designer.cs` and `StokTakipUI/FormUrunDuzenle.cs` for the literal emoji characters `📄`, `📂`, `✖` to confirm none remain. Confirm `FormUrunDuzenle.cs`'s color-constant rename didn't miss any usage — every `CNavy`/`CLightBg`/`CAccent`/`CWhite`/`CBorder` reference elsewhere in the file still compiles unchanged since only the *initializer* changed, not the field names.
+Grep `FabrikaStokTakipUygulamasi/FormUrunEkle.Designer.cs` and `FabrikaStokTakipUygulamasi/FormUrunDuzenle.cs` for the literal emoji characters `📄`, `📂`, `✖` to confirm none remain. Confirm `FormUrunDuzenle.cs`'s color-constant rename didn't miss any usage — every `CNavy`/`CLightBg`/`CAccent`/`CWhite`/`CBorder` reference elsewhere in the file still compiles unchanged since only the *initializer* changed, not the field names.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add StokTakipUI/FormUrunEkle.Designer.cs StokTakipUI/FormUrunEkle.cs StokTakipUI/FormUrunDuzenle.cs
+git add FabrikaStokTakipUygulamasi/FormUrunEkle.Designer.cs FabrikaStokTakipUygulamasi/FormUrunEkle.cs FabrikaStokTakipUygulamasi/FormUrunDuzenle.cs
 git commit -m "style: corporate fonts/colors and icons for the product add/edit forms"
 ```
 
@@ -2306,12 +2306,12 @@ git commit -m "style: corporate fonts/colors and icons for the product add/edit 
 ### Task 15: Kalan kod-tabanlı formlar — ortak `UIStil` sabitlerine geçiş ve emoji temizliği
 
 **Files:**
-- Modify: `StokTakipUI/FormLowStockSecim.cs`
-- Modify: `StokTakipUI/FormLowStockLimit.cs`
-- Modify: `StokTakipUI/FormSilOnay.cs`
-- Modify: `StokTakipUI/FormUrunDetay.cs`
-- Modify: `StokTakipUI/FormAdmin.cs`
-- Modify: `StokTakipUI/FormLowStock.Designer.cs` (rule-based pass, see Step 6)
+- Modify: `FabrikaStokTakipUygulamasi/FormLowStockSecim.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormLowStockLimit.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormSilOnay.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormUrunDetay.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormAdmin.cs`
+- Modify: `FabrikaStokTakipUygulamasi/FormLowStock.Designer.cs` (rule-based pass, see Step 6)
 
 **Interfaces:**
 - Consumes: `UIStil.Lacivert`, `UIStil.LacivertKoyu`, `UIStil.Aksan`, `UIStil.GriAcik`, `UIStil.Beyaz`, `UIStil.GriOrta`, `UIStil.Kritik`, `UIStil.Basarili`, `UIStil.Uyari`, `UIStil.Mavi`, `UIStil.Glyph.*`, `UIStil.SolIkonCiz`, `UIStil.IkonLabel` (Task 8).
@@ -2559,7 +2559,7 @@ And the two remaining emoji-prefixed button label strings (these lose the emoji 
 
 - [ ] **Step 6: `FormLowStock.Designer.cs` — generic corporate-palette sweep (this file has not been read in full during planning)**
 
-Open `StokTakipUI/FormLowStock.Designer.cs` and:
+Open `FabrikaStokTakipUygulamasi/FormLowStock.Designer.cs` and:
 1. `grep -n "Gainsboro\|Color.Brown\|Color.OliveDrab\|Color.Maroon\|Color.DarkGreen\|Color.Green\b\|Microsoft Sans Serif"` — for every match, replace with the equivalent `UIStil` color/font following the same mapping used in Tasks 11–14 (`Gainsboro`→`UIStil.GriAcik`'s RGB `FromArgb(236, 240, 241)`, `Microsoft Sans Serif`→`"Segoe UI"`, any red/green/orange system color name → the matching `UIStil.Kritik`/`UIStil.Basarili`/`UIStil.Uyari` RGB values).
 2. `grep -n "📄\|📂\|✖\|👤\|👥\|📋\|🔐\|⏻\|👁\|🌐"` in both `FormLowStock.Designer.cs` and `FormLowStock.cs` — if any emoji shows up (none were seen in the code-behind read earlier in this project, but the Designer file was never opened), remove it from the string and, if the button/label pairs an icon with other text in the same control, apply the same `Padding` + `UIStil.SolIkonCiz` `Paint`-handler pattern used throughout Tasks 9–14; if it's an icon-only control, swap `Font` to `UIStil.GlyphFont(...)` and `Text` to the matching `UIStil.Glyph.*` constant directly (no `Paint` handler needed).
 3. If neither grep finds anything, this file was already on-palette — note that in the commit message and move on; do not invent changes where none are needed.
@@ -2571,7 +2571,7 @@ For each of the five fully-specified files, grep for the literal emoji character
 - [ ] **Step 8: Commit**
 
 ```bash
-git add StokTakipUI/FormLowStockSecim.cs StokTakipUI/FormLowStockLimit.cs StokTakipUI/FormSilOnay.cs StokTakipUI/FormUrunDetay.cs StokTakipUI/FormAdmin.cs StokTakipUI/FormLowStock.Designer.cs
+git add FabrikaStokTakipUygulamasi/FormLowStockSecim.cs FabrikaStokTakipUygulamasi/FormLowStockLimit.cs FabrikaStokTakipUygulamasi/FormSilOnay.cs FabrikaStokTakipUygulamasi/FormUrunDetay.cs FabrikaStokTakipUygulamasi/FormAdmin.cs FabrikaStokTakipUygulamasi/FormLowStock.Designer.cs
 git commit -m "style: point remaining forms at the shared UIStil palette and remove leftover emoji"
 ```
 
@@ -2594,7 +2594,7 @@ git rm RAILWAY_DATABASE_KURULUM.md
 Current content:
 
 ```markdown
-# StokTakipUI – Kurulum (NET 8 Sürümü)
+# FabrikaStokTakipUygulamasi – Kurulum (NET 8 Sürümü)
 
 ## Neden bu sürüm?
 .NET Framework 4.7.2 targeting pack bilgisayarınızda yüklü değildi.
@@ -2602,20 +2602,20 @@ Bu sürüm .NET 8 (Windows) kullanıyor — modern Visual Studio'larda her zaman
 
 ## Adımlar
 
-1. `StokTakipUI.sln` dosyasını **Visual Studio 2022** ile açın
+1. `FabrikaStokTakipUygulamasi.sln` dosyasını **Visual Studio 2022** ile açın
 2. **Ctrl + Shift + B** ile derleyin (NuGet paketi otomatik indirilir)
 3. **F5** ile çalıştırın
 
 ## Notlar
 - SQLite paketi: `Microsoft.Data.Sqlite 8.0.0` (otomatik indirilir)
-- Veritabanı: `%AppData%\StokTakipUI\stok.db` (ilk açılışta otomatik oluşur)
+- Veritabanı: `%AppData%\FabrikaStokTakipUygulamasi\stok.db` (ilk açılışta otomatik oluşur)
 - İnternet bağlantısı ilk derlemede gereklidir (NuGet indirmesi için)
 ```
 
 Replace with:
 
 ```markdown
-# StokTakipUI – Kurulum (.NET 8 Sürümü)
+# FabrikaStokTakipUygulamasi – Kurulum (.NET 8 Sürümü)
 
 ## Neden bu sürüm?
 .NET Framework 4.7.2 targeting pack bilgisayarınızda yüklü değildi.
@@ -2625,23 +2625,23 @@ Veritabanı yerel SQLite'tır — internet bağlantısı veya ayrı bir sunucu k
 
 ## Adımlar
 
-1. `StokTakipUI.sln` dosyasını **Visual Studio 2022** ile açın
+1. `FabrikaStokTakipUygulamasi.sln` dosyasını **Visual Studio 2022** ile açın
 2. **Ctrl + Shift + B** ile derleyin (NuGet paketleri otomatik indirilir)
 3. **F5** ile çalıştırın
 
 ## Notlar
 - SQLite paketi: `Microsoft.Data.Sqlite 8.0.10` (otomatik indirilir)
-- Veritabanı: `%AppData%\StokTakipUI\stok.db` (ilk açılışta otomatik oluşur, boş başlar)
+- Veritabanı: `%AppData%\FabrikaStokTakipUygulamasi\stok.db` (ilk açılışta otomatik oluşur, boş başlar)
 - Varsayılan kullanıcılar (ilk açılışta otomatik eklenir): `emir/1234`, `barkan/1234` (Depo Personeli),
   `anil/1234`, `goksu/1234` (Mühendis), `admin/admin` (Admin) — şifreler veritabanında hash'lenerek saklanır
-- Bilgisayar değiştirilirse `%AppData%\StokTakipUI\stok.db` dosyası elle yeni bilgisayara kopyalanmalıdır;
+- Bilgisayar değiştirilirse `%AppData%\FabrikaStokTakipUygulamasi\stok.db` dosyası elle yeni bilgisayara kopyalanmalıdır;
   otomatik senkronizasyon yoktur (tek makine, dosya tabanlı veritabanı)
 - İnternet bağlantısı yalnızca ilk derlemede gereklidir (NuGet indirmesi için)
 ```
 
 - [ ] **Step 3: Self-review**
 
-Confirm no other file in the repository references `RAILWAY_DATABASE_KURULUM.md` (`grep -rn "RAILWAY_DATABASE_KURULUM" .` from the repo root should return nothing after the deletion) or the environment variables `STOK_DB_URL` / `DATABASE_PUBLIC_URL` / `DATABASE_URL` (`grep -rn "STOK_DB_URL\|DATABASE_PUBLIC_URL\|DATABASE_URL" StokTakipUI/` should return nothing — Task 3 already removed all reads of these from `StokVeritabani.cs`).
+Confirm no other file in the repository references `RAILWAY_DATABASE_KURULUM.md` (`grep -rn "RAILWAY_DATABASE_KURULUM" .` from the repo root should return nothing after the deletion) or the environment variables `STOK_DB_URL` / `DATABASE_PUBLIC_URL` / `DATABASE_URL` (`grep -rn "STOK_DB_URL\|DATABASE_PUBLIC_URL\|DATABASE_URL" FabrikaStokTakipUygulamasi/` should return nothing — Task 3 already removed all reads of these from `StokVeritabani.cs`).
 
 - [ ] **Step 4: Commit**
 
@@ -2658,11 +2658,11 @@ git commit -m "docs: update setup instructions for the local SQLite version, rem
 
 - [ ] **Step 1: Build**
 
-Open `StokTakipUI.sln` in Visual Studio 2022, `Ctrl+Shift+B`. Expected: builds with zero errors. If there are errors, report the exact error text/file/line back — each is almost certainly a small typo introduced by one of the mechanical text replacements in Tasks 9–15 (e.g. a missed closing brace, a `UIStil.` reference before Task 8 was applied) and can be fixed with a single targeted edit.
+Open `FabrikaStokTakipUygulamasi.sln` in Visual Studio 2022, `Ctrl+Shift+B`. Expected: builds with zero errors. If there are errors, report the exact error text/file/line back — each is almost certainly a small typo introduced by one of the mechanical text replacements in Tasks 9–15 (e.g. a missed closing brace, a `UIStil.` reference before Task 8 was applied) and can be fixed with a single targeted edit.
 
 - [ ] **Step 2: First run / database creation**
 
-Press `F5`. Expected: no crash on startup, the login screen appears, and `%AppData%\StokTakipUI\stok.db` now exists on disk (check via `dir %AppData%\StokTakipUI` in a terminal).
+Press `F5`. Expected: no crash on startup, the login screen appears, and `%AppData%\FabrikaStokTakipUygulamasi\stok.db` now exists on disk (check via `dir %AppData%\FabrikaStokTakipUygulamasi` in a terminal).
 
 - [ ] **Step 3: Login**
 
@@ -2670,7 +2670,7 @@ Log in as `admin` / `admin`. Expected: succeeds, main window opens with the side
 
 - [ ] **Step 4: "Keep me logged in"**
 
-Check "Oturumu Açık Tut", log in, close the app fully, relaunch. Expected: automatically logged back in without re-entering credentials. Then open `%AppData%\StokTakipUI\oturum.json` in a text editor — expected: the password field is a long opaque Base64 blob, not the plaintext password.
+Check "Oturumu Açık Tut", log in, close the app fully, relaunch. Expected: automatically logged back in without re-entering credentials. Then open `%AppData%\FabrikaStokTakipUygulamasi\oturum.json` in a text editor — expected: the password field is a long opaque Base64 blob, not the plaintext password.
 
 - [ ] **Step 5: Product CRUD**
 

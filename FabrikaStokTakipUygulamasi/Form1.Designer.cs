@@ -1,4 +1,4 @@
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     partial class Form1
     {
@@ -230,7 +230,7 @@ namespace StokTakipUI
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 30);
             this.label1.TabIndex = 0;
-            this.label1.Text = "STOK TAKİP SİSTEMİ";
+            this.label1.Text = "FABRİKA STOK TAKİP UYGULAMASI";
 
             // Form1 ayarları
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,7 +240,7 @@ namespace StokTakipUI
             this.Controls.Add(this.panelSidebar);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Stok Takip Sistemi";
+            this.Text = "Fabrika Stok Takip Uygulaması";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelSidebar.ResumeLayout(false);

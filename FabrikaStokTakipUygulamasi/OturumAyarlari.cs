@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace StokTakipUI
+namespace FabrikaStokTakipUygulamasi
 {
     /// <summary>
     /// "Oturumu açık tut" tercihini ve kaydedilmiş kullanıcı bilgisini
@@ -13,7 +13,7 @@ namespace StokTakipUI
     {
         private static readonly string DosyaYolu = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "StokTakipUI",
+            "FabrikaStokTakipUygulamasi",
             "oturum.json");
 
         private class AyarModel
