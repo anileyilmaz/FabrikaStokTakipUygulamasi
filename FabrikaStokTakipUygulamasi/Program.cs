@@ -14,6 +14,15 @@ namespace FabrikaStokTakipUygulamasi
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            if (!BaglantiAyarlari.DosyaVarMi())
+            {
+                using (var ayarForm = new FormSunucuAyarlari())
+                {
+                    if (ayarForm.ShowDialog() != DialogResult.OK)
+                        return; // Kullanıcı iptal etti — uygulama açılmaz
+                }
+            }
+
             try { StokVeritabani.Baslat(); }
             catch (Exception hata)
             {
