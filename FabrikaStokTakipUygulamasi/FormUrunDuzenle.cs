@@ -176,6 +176,15 @@ namespace FabrikaStokTakipUygulamasi
             this.Controls.Add(panelPdf);
             this.Controls.Add(btnGuncelle);
             this.Controls.Add(btnIptal);
+
+            UIStil.YuvarlakBolgeUygula(panelCard, 14);
+            UIStil.YuvarlakBolgeUygula(panelPdf, 12);
+            this.Paint += (s, e) =>
+            {
+                UIStil.YumusakGolgeCiz(e.Graphics, panelCard.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, panelPdf.Bounds);
+            };
+            UIStil.HoverAnimasyonuBagla(btnGuncelle, CAccent, Color.FromArgb(245, 180, 90), renk => btnGuncelle.BackColor = renk);
         }
 
         private void BtnPdfDegis_Click(object sender, EventArgs e)

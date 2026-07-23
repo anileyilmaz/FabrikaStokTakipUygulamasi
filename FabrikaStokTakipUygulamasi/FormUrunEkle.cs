@@ -21,6 +21,11 @@ namespace FabrikaStokTakipUygulamasi
             btnTemizle.Paint   += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat, btnTemizle.ClientRectangle,  Color.White);
             btnPdfSec.Paint    += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Dokuman, btnPdfSec.ClientRectangle, Color.White, 11f);
             btnPdfKaldir.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat,   btnPdfKaldir.ClientRectangle, Color.White, 11f);
+
+            foreach (var grp in new GroupBox[] { grpGenel, grpOlcu, grpStok, grpSertifika })
+                UIStil.YuvarlakBolgeUygula(grp, 10);
+
+            UIStil.HoverAnimasyonuBagla(btnUrunEkle, UIStil.Aksan, Color.FromArgb(245, 180, 90), renk => btnUrunEkle.BackColor = renk);
         }
 
         private void FormUrunEkle_Load(object sender, EventArgs e)
