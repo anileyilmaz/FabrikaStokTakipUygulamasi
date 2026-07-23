@@ -197,6 +197,15 @@ namespace FabrikaStokTakipUygulamasi
             this.Controls.Add(panelCard);
             this.Controls.Add(panelPdf);
             this.Controls.Add(btnKapat);
+
+            UIStil.YuvarlakBolgeUygula(panelCard, 14);
+            UIStil.YuvarlakBolgeUygula(panelPdf, 10);
+            this.Paint += (s, e) =>
+            {
+                UIStil.YumusakGolgeCiz(e.Graphics, panelCard.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, panelPdf.Bounds);
+            };
+            UIStil.HoverAnimasyonuBagla(btnKapat, CNavy, Color.FromArgb(30, 90, 110), renk => btnKapat.BackColor = renk);
         }
 
         /// <summary>PDF'i geçici klasöre kaydedip sistemin varsayılan görüntüleyicisiyle açar.</summary>

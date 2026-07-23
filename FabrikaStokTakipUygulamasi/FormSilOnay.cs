@@ -103,6 +103,8 @@ namespace FabrikaStokTakipUygulamasi
             {
                 panelStripe, lblIcon, lblMesaj, lblUrun, btnEvet, btnHayir
             });
+
+            UIStil.HoverAnimasyonuBagla(btnEvet, CRed, Color.FromArgb(215, 90, 75), renk => btnEvet.BackColor = renk);
         }
     }
 }
