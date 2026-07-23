@@ -20,6 +20,15 @@ namespace FabrikaStokTakipUygulamasi
             btnAdmin.Paint       += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ayarlar,    btnAdmin.ClientRectangle,    btnAdmin.ForeColor);
             btnOturumKapat.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kilit,      btnOturumKapat.ClientRectangle, Color.White);
 
+            foreach (var btn in new[] { btnDashboard, btnUrunler, btnUrunEkle, btnArama, btnLowStock })
+            {
+                var b = btn;
+                UIStil.HoverAnimasyonuBagla(b, Color.FromArgb(52, 73, 94), UIStil.MaviAcik, renk =>
+                {
+                    if (b != aktifButon) b.BackColor = renk;
+                });
+            }
+
             if (KullaniciYonetici.AktifKullanici != null)
             {
                 lblKullaniciAdi.Text = KullaniciYonetici.AktifKullanici.KullaniciAdi;
