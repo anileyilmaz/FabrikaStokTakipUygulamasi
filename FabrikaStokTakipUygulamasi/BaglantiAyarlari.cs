@@ -31,6 +31,13 @@ namespace FabrikaStokTakipUygulamasi
 
         public static bool DosyaVarMi() => File.Exists(DosyaYolu);
 
+        /// <summary>Kayıtlı bağlantı bilgisini siler (dosya yoksa sessizce çıkar) — yanlış/değişmiş
+        /// sunucu bilgisi girildiğinde kurulum ekranını yeniden tetiklemek için kullanılır.</summary>
+        public static void Sil()
+        {
+            if (File.Exists(DosyaYolu)) File.Delete(DosyaYolu);
+        }
+
         public static void Kaydet(string sunucu, int port, string veritabaniAdi, string kullaniciAdi, string sifre)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(DosyaYolu)!);

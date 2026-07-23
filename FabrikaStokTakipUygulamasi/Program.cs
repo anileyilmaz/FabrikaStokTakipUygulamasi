@@ -14,21 +14,33 @@ namespace FabrikaStokTakipUygulamasi
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!BaglantiAyarlari.DosyaVarMi())
+            while (true)
             {
-                using (var ayarForm = new FormSunucuAyarlari())
+                if (!BaglantiAyarlari.DosyaVarMi())
                 {
-                    if (ayarForm.ShowDialog() != DialogResult.OK)
-                        return; // Kullanıcı iptal etti — uygulama açılmaz
+                    using (var ayarForm = new FormSunucuAyarlari())
+                    {
+                        if (ayarForm.ShowDialog() != DialogResult.OK)
+                            return; // Kullanıcı iptal etti — uygulama açılmaz
+                    }
                 }
-            }
 
-            try { StokVeritabani.Baslat(); }
-            catch (Exception hata)
-            {
-                MessageBox.Show("Veritabanı başlatılamadı:\n" + hata.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                try
+                {
+                    StokVeritabani.Baslat();
+                    break; // Bağlantı başarılı — kuruluma devam et
+                }
+                catch (Exception hata)
+                {
+                    var secim = MessageBox.Show(
+                        "Veritabanına bağlanılamadı:\n" + hata.Message +
+                        "\n\nSunucu bağlantı bilgilerini yeniden girmek ister misiniz?",
+                        "Bağlantı Hatası", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
+                    if (secim != DialogResult.Yes) return;
+
+                    BaglantiAyarlari.Sil(); // Yeniden sorulması için mevcut (muhtemelen hatalı) ayarı temizle
+                }
             }
 
             AppContext = new StokAppContext();
