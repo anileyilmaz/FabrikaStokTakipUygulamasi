@@ -242,7 +242,7 @@
             series1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.chartStokDagilimi.Series.Add(series1);
             this.chartStokDagilimi.Name = "chartStokDagilimi";
-            this.chartStokDagilimi.Size = new System.Drawing.Size(254, 150);
+            this.chartStokDagilimi.Size = new System.Drawing.Size(254, 95);
             this.chartStokDagilimi.TabIndex = 5;
             this.chartStokDagilimi.Text = "chartStokDagilimi";
             ((System.ComponentModel.ISupportInitialize)(this.chartStokDagilimi)).EndInit();
@@ -261,7 +261,7 @@
             this.chartSonUrunler.BorderlineColor = System.Drawing.Color.FromArgb(189, 195, 199);
             this.chartSonUrunler.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             this.chartSonUrunler.BorderlineWidth = 1;
-            this.chartSonUrunler.Location = new System.Drawing.Point(890, 280);
+            this.chartSonUrunler.Location = new System.Drawing.Point(890, 225);
             series2.ChartArea = "ChartArea2";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
             series2.Name = "Seri2";
@@ -269,7 +269,7 @@
             series2.Color = System.Drawing.Color.FromArgb(15, 118, 110);
             this.chartSonUrunler.Series.Add(series2);
             this.chartSonUrunler.Name = "chartSonUrunler";
-            this.chartSonUrunler.Size = new System.Drawing.Size(254, 170);
+            this.chartSonUrunler.Size = new System.Drawing.Size(254, 95);
             this.chartSonUrunler.TabIndex = 6;
             this.chartSonUrunler.Text = "chartSonUrunler";
             ((System.ComponentModel.ISupportInitialize)(this.chartSonUrunler)).EndInit();
