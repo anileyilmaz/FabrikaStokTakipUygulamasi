@@ -416,6 +416,7 @@ namespace FabrikaStokTakipUygulamasi
 
             var btnYenile = MkBtn(LangManager.T("admin.yenile"), CBlue, new Point(330, 13), new Size(95, 28));
             btnYenile.Click += (s, e) => HareketleriYukle();
+            UIStil.HoverAnimasyonuBagla(btnYenile, CBlue, Color.FromArgb(45, 212, 191), renk => btnYenile.BackColor = renk);
 
             lblHarSayisi = new Label
             {
