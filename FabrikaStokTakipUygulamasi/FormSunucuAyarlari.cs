@@ -27,8 +27,9 @@ namespace FabrikaStokTakipUygulamasi
             this.MaximizeBox     = false;
             this.MinimizeBox     = false;
             this.BackColor       = UIStil.GriAcik;
-            this.ClientSize      = new Size(420, 400);
+            this.ClientSize      = new Size(420, 444);
             this.Font            = new Font("Segoe UI", 9.5f);
+            this.AutoScaleMode   = AutoScaleMode.Font;
 
             var panelHeader = new Panel { Dock = DockStyle.Top, Height = 70, BackColor = UIStil.LacivertKoyu };
             panelHeader.Controls.Add(new Label
@@ -79,7 +80,7 @@ namespace FabrikaStokTakipUygulamasi
             {
                 Text = "Kaydet ve Devam Et", BackColor = UIStil.Mavi, ForeColor = UIStil.Beyaz,
                 FlatStyle = FlatStyle.Flat, Font = UIStil.ButonYazi(10f),
-                Size = new Size(380, 44), Location = new Point(20, 340), Cursor = Cursors.Hand
+                Size = new Size(380, 44), Location = new Point(20, 380), Cursor = Cursors.Hand
             };
             btnKaydet.FlatAppearance.BorderSize = 0;
             btnKaydet.Click += BtnKaydet_Click;

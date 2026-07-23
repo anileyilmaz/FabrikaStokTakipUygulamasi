@@ -421,7 +421,8 @@ namespace FabrikaStokTakipUygulamasi
             //
             // FormUrunEkle
             //
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             ClientSize = new System.Drawing.Size(1184, 661);
             Controls.Add(btnTemizle);
