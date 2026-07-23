@@ -12,6 +12,9 @@ namespace FabrikaStokTakipUygulamasi
 
             btnYeni.Paint     += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ekle,    btnYeni.ClientRectangle,    Color.White);
             btnDuzenle.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Duzenle, btnDuzenle.ClientRectangle, Color.Black);
+
+            UIStil.HoverAnimasyonuBagla(btnYeni,     Color.FromArgb(39, 174, 96),  Color.FromArgb(90, 200, 140), renk => btnYeni.BackColor = renk);
+            UIStil.HoverAnimasyonuBagla(btnDuzenle,  UIStil.Aksan,                 Color.FromArgb(245, 180, 90), renk => btnDuzenle.BackColor = renk);
         }
 
         private void FormLowStock_Load(object sender, EventArgs e)

@@ -142,6 +142,8 @@ namespace FabrikaStokTakipUygulamasi
             this.Controls.Add(dgv);           // Fill → ortayı kaplar
             this.Controls.Add(panelAlt);      // Bottom
             this.Controls.Add(panelHeader);   // Top
+
+            UIStil.HoverAnimasyonuBagla(btnKapat, Color.FromArgb(149, 165, 166), Color.FromArgb(180, 190, 190), renk => btnKapat.BackColor = renk);
         }
 
         private void Yukle()

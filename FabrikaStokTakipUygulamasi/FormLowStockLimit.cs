@@ -126,6 +126,12 @@ namespace FabrikaStokTakipUygulamasi
             this.Controls.Add(panelCard);
             this.Controls.Add(btnKaydet);
             this.Controls.Add(btnIptal);
+
+            UIStil.YuvarlakBolgeUygula(panelCard, 10);
+            this.Paint += (s, e) => UIStil.YumusakGolgeCiz(e.Graphics, panelCard.Bounds);
+
+            Color btnKaydetNormalRenk = _duzenle ? CAccent : CNavy;
+            UIStil.HoverAnimasyonuBagla(btnKaydet, btnKaydetNormalRenk, Color.FromArgb(245, 180, 90), renk => btnKaydet.BackColor = renk);
         }
     }
 }
