@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -10,6 +12,21 @@ namespace FabrikaStokTakipUygulamasi
         public FormDashboard()
         {
             InitializeComponent();
+
+            foreach (var panel in new[] { panelTotal, panelCritical, panelCompany })
+                UIStil.YuvarlakBolgeUygula(panel, 14);
+
+            UIStil.YuvarlakBolgeUygula(chartStokDagilimi, 10);
+            UIStil.YuvarlakBolgeUygula(chartSonUrunler, 10);
+
+            this.Paint += (s, e) =>
+            {
+                UIStil.YumusakGolgeCiz(e.Graphics, panelTotal.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, panelCritical.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, panelCompany.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, chartStokDagilimi.Bounds);
+                UIStil.YumusakGolgeCiz(e.Graphics, chartSonUrunler.Bounds);
+            };
         }
 
         private void FormDashboard_Load(object sender, EventArgs e)
@@ -44,6 +61,7 @@ namespace FabrikaStokTakipUygulamasi
             }
 
             GrafikGuncelle(toplam, kritik);
+            SonUrunlerGrafiguGuncelle();
 
             // Kart başlıkları
             label2.Text = LangManager.T("dash.toplamUrun");
@@ -87,6 +105,23 @@ namespace FabrikaStokTakipUygulamasi
             int normalIdx = seri.Points.AddXY(LangManager.Ingilizce ? "Normal" : "Normal", normal);
             seri.Points[normalIdx].Color = System.Drawing.Color.FromArgb(41, 128, 185);
             seri.Points[normalIdx].LegendText = (LangManager.Ingilizce ? "Normal: " : "Normal: ") + normal;
+        }
+
+        private void SonUrunlerGrafiguGuncelle()
+        {
+            var seri = chartSonUrunler.Series["Seri2"];
+            seri.Points.Clear();
+
+            List<Urun> urunler;
+            try { urunler = StokVeritabani.TumUrunler(); }
+            catch { return; }
+
+            foreach (var u in urunler.Take(10))
+            {
+                string etiket = string.IsNullOrWhiteSpace(u.UrunCinsi) ? ("#" + u.Id) : u.UrunCinsi;
+                if (etiket.Length > 10) etiket = etiket.Substring(0, 10) + "…";
+                seri.Points.AddXY(etiket, u.Stok);
+            }
         }
 
         private void TabloyuDoldur()

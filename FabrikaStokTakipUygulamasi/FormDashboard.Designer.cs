@@ -33,6 +33,8 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelTop = new System.Windows.Forms.Panel();
             this.lblDashboard = new System.Windows.Forms.Label();
             this.panelTotal = new System.Windows.Forms.Panel();
@@ -245,6 +247,33 @@
             this.chartStokDagilimi.Text = "chartStokDagilimi";
             ((System.ComponentModel.ISupportInitialize)(this.chartStokDagilimi)).EndInit();
             //
+            // chartSonUrunler
+            //
+            this.chartSonUrunler = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSonUrunler)).BeginInit();
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.Name = "ChartArea2";
+            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("Segoe UI", 6.5F);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            this.chartSonUrunler.ChartAreas.Add(chartArea2);
+            this.chartSonUrunler.BackColor = System.Drawing.Color.White;
+            this.chartSonUrunler.BorderlineColor = System.Drawing.Color.FromArgb(189, 195, 199);
+            this.chartSonUrunler.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            this.chartSonUrunler.BorderlineWidth = 1;
+            this.chartSonUrunler.Location = new System.Drawing.Point(890, 280);
+            series2.ChartArea = "ChartArea2";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+            series2.Name = "Seri2";
+            series2.Font = new System.Drawing.Font("Segoe UI", 7F);
+            series2.Color = System.Drawing.Color.FromArgb(15, 118, 110);
+            this.chartSonUrunler.Series.Add(series2);
+            this.chartSonUrunler.Name = "chartSonUrunler";
+            this.chartSonUrunler.Size = new System.Drawing.Size(254, 170);
+            this.chartSonUrunler.TabIndex = 6;
+            this.chartSonUrunler.Text = "chartSonUrunler";
+            ((System.ComponentModel.ISupportInitialize)(this.chartSonUrunler)).EndInit();
+            //
             // label7
             //
             this.label7.AutoSize = true;
@@ -321,6 +350,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             this.ClientSize = new System.Drawing.Size(1184, 661);
             this.Controls.Add(this.chartStokDagilimi);
+            this.Controls.Add(this.chartSonUrunler);
             this.Controls.Add(this.dgvRecent);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panelCompany);
@@ -362,6 +392,7 @@
         private System.Windows.Forms.Label lblCompanyIkon;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartStokDagilimi;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartSonUrunler;
         private System.Windows.Forms.DataGridView dgvRecent;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFirma;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMaterial;
