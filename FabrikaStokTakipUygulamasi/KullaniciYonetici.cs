@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Data.Sqlite;
+using Npgsql;
 
 namespace FabrikaStokTakipUygulamasi
 {
     public enum KullaniciRol { Admin, Muhendis, DepoPersoneli }
 
-    /// <summary>
-    /// Tek bir kullanıcıyı temsil eder.
-    /// Veriler SQLite'dan gelir — bellekteki liste sadece cache görevi görür.
-    /// </summary>
     public class Kullanici
     {
         public int           Id            { get; set; }
@@ -32,27 +28,26 @@ namespace FabrikaStokTakipUygulamasi
 
     /// <summary>
     /// Kullanıcı oturum yönetimi. Şifreler PBKDF2 ile hash'lenerek saklanır (bkz. Guvenlik.cs).
+    /// Veriler fabrika içi paylaşımlı PostgreSQL sunucusundan gelir.
     /// </summary>
     public static class KullaniciYonetici
     {
         public static Kullanici AktifKullanici { get; private set; }
 
-        // ── Tablo kurulumu (StokVeritabani.Baslat() tarafından çağrılır) ─────
-        public static void TabloyuKur(SqliteConnection baglanti)
+        public static void TabloyuKur(NpgsqlConnection baglanti)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS ""Kullanicilar"" (
-                    ""Id""           INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ""Id""           SERIAL PRIMARY KEY,
                     ""KullaniciAdi"" TEXT NOT NULL UNIQUE,
                     ""Sifre""        TEXT NOT NULL,
                     ""Rol""          TEXT NOT NULL DEFAULT 'DepoPersoneli',
-                    ""SonGiris""     TEXT,
-                    ""AktifOturum""  INTEGER NOT NULL DEFAULT 0
+                    ""SonGiris""     TIMESTAMPTZ,
+                    ""AktifOturum""  BOOLEAN NOT NULL DEFAULT false
                 );";
-            using (var k = new SqliteCommand(sql, baglanti))
+            using (var k = new NpgsqlCommand(sql, baglanti))
                 k.ExecuteNonQuery();
 
-            // Varsayılan kullanıcıları ekle (yoksa) — şifreler hash'lenmiş olarak yazılır
             var varsayilanlar = new[]
             {
                 ("emir",   "1234",  "DepoPersoneli"),
@@ -68,7 +63,7 @@ namespace FabrikaStokTakipUygulamasi
                     INSERT INTO ""Kullanicilar"" (""KullaniciAdi"", ""Sifre"", ""Rol"")
                     VALUES (@Ad, @Sifre, @Rol)
                     ON CONFLICT (""KullaniciAdi"") DO NOTHING;";
-                using (var k = new SqliteCommand(ins, baglanti))
+                using (var k = new NpgsqlCommand(ins, baglanti))
                 {
                     k.Parameters.AddWithValue("@Ad",    ad);
                     k.Parameters.AddWithValue("@Sifre", Guvenlik.SifreyiHashle(sifre));
@@ -78,7 +73,6 @@ namespace FabrikaStokTakipUygulamasi
             }
         }
 
-        // ── Giriş ─────────────────────────────────────────────────────────────
         public static bool GirisYap(string ad, string sifre)
         {
             try
@@ -88,14 +82,14 @@ namespace FabrikaStokTakipUygulamasi
                     baglanti.Open();
 
                     string sql = @"SELECT * FROM ""Kullanicilar"" WHERE LOWER(""KullaniciAdi"") = LOWER(@Ad);";
-                    using (var k = new SqliteCommand(sql, baglanti))
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     {
                         k.Parameters.AddWithValue("@Ad", ad);
                         using (var oku = k.ExecuteReader())
                         {
-                            if (!oku.Read()) return false;                              // kullanıcı yok
+                            if (!oku.Read()) return false;
                             string hashDb = oku["Sifre"].ToString();
-                            if (!Guvenlik.SifreDogrula(sifre, hashDb)) return false;     // şifre yanlış
+                            if (!Guvenlik.SifreDogrula(sifre, hashDb)) return false;
 
                             AktifKullanici = new Kullanici
                             {
@@ -104,7 +98,7 @@ namespace FabrikaStokTakipUygulamasi
                                 Sifre        = hashDb,
                                 Rol          = RolParse(oku["Rol"].ToString()),
                                 SonGiris     = oku["SonGiris"] != DBNull.Value
-                                               ? DateTime.Parse(oku["SonGiris"].ToString())
+                                               ? (DateTime?)((DateTime)oku["SonGiris"]).ToLocalTime()
                                                : null,
                             };
                         }
@@ -112,11 +106,10 @@ namespace FabrikaStokTakipUygulamasi
 
                     string guncelle = @"
                         UPDATE ""Kullanicilar""
-                        SET ""SonGiris"" = @SonGiris, ""AktifOturum"" = 1
+                        SET ""SonGiris"" = NOW(), ""AktifOturum"" = true
                         WHERE ""Id"" = @Id;";
-                    using (var k = new SqliteCommand(guncelle, baglanti))
+                    using (var k = new NpgsqlCommand(guncelle, baglanti))
                     {
-                        k.Parameters.AddWithValue("@SonGiris", DateTime.Now.ToString("O"));
                         k.Parameters.AddWithValue("@Id", AktifKullanici.Id);
                         k.ExecuteNonQuery();
                     }
@@ -129,7 +122,7 @@ namespace FabrikaStokTakipUygulamasi
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    "Veritabanı bağlantı hatası:\n" + ex.Message,
+                    "Sunucu bağlantı hatası:\n" + ex.Message,
                     "Hata",
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
@@ -137,7 +130,6 @@ namespace FabrikaStokTakipUygulamasi
             }
         }
 
-        // ── Çıkış ─────────────────────────────────────────────────────────────
         public static void Cikis()
         {
             if (AktifKullanici == null) return;
@@ -146,8 +138,8 @@ namespace FabrikaStokTakipUygulamasi
                 using (var baglanti = StokVeritabani.YeniBaglanti())
                 {
                     baglanti.Open();
-                    string sql = @"UPDATE ""Kullanicilar"" SET ""AktifOturum"" = 0 WHERE ""Id"" = @Id;";
-                    using (var k = new SqliteCommand(sql, baglanti))
+                    string sql = @"UPDATE ""Kullanicilar"" SET ""AktifOturum"" = false WHERE ""Id"" = @Id;";
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     {
                         k.Parameters.AddWithValue("@Id", AktifKullanici.Id);
                         k.ExecuteNonQuery();
@@ -158,7 +150,6 @@ namespace FabrikaStokTakipUygulamasi
             finally { AktifKullanici = null; }
         }
 
-        // ── Tüm kullanıcıları getir (Admin paneli için) ───────────────────────
         public static List<Kullanici> TumKullanicilar()
         {
             var liste = new List<Kullanici>();
@@ -168,7 +159,7 @@ namespace FabrikaStokTakipUygulamasi
                 {
                     baglanti.Open();
                     string sql = @"SELECT * FROM ""Kullanicilar"" ORDER BY ""KullaniciAdi"";";
-                    using (var k = new SqliteCommand(sql, baglanti))
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     using (var oku = k.ExecuteReader())
                     {
                         while (oku.Read())
@@ -180,10 +171,10 @@ namespace FabrikaStokTakipUygulamasi
                                 Sifre        = oku["Sifre"].ToString(),
                                 Rol          = RolParse(oku["Rol"].ToString()),
                                 SonGiris     = oku["SonGiris"] != DBNull.Value
-                                               ? DateTime.Parse(oku["SonGiris"].ToString())
+                                               ? (DateTime?)((DateTime)oku["SonGiris"]).ToLocalTime()
                                                : null,
                                 AktifOturum  = oku["AktifOturum"] != DBNull.Value
-                                               && Convert.ToInt32(oku["AktifOturum"]) != 0,
+                                               && Convert.ToBoolean(oku["AktifOturum"]),
                             });
                         }
                     }
@@ -193,7 +184,6 @@ namespace FabrikaStokTakipUygulamasi
             return liste;
         }
 
-        // ── Kullanıcı yönetimi ────────────────────────────────────────────────
         public static bool YeniKullaniciEkle(string ad, string sifre, KullaniciRol rol)
         {
             if (string.IsNullOrWhiteSpace(ad) || string.IsNullOrWhiteSpace(sifre)) return false;
@@ -205,13 +195,15 @@ namespace FabrikaStokTakipUygulamasi
                     string sql = @"
                         INSERT INTO ""Kullanicilar"" (""KullaniciAdi"", ""Sifre"", ""Rol"")
                         VALUES (@Ad, @Sifre, @Rol)
-                        ON CONFLICT (""KullaniciAdi"") DO NOTHING;";
-                    using (var k = new SqliteCommand(sql, baglanti))
+                        ON CONFLICT (""KullaniciAdi"") DO NOTHING
+                        RETURNING ""Id"";";
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     {
                         k.Parameters.AddWithValue("@Ad",    ad);
                         k.Parameters.AddWithValue("@Sifre", Guvenlik.SifreyiHashle(sifre));
                         k.Parameters.AddWithValue("@Rol",   rol.ToString());
-                        return k.ExecuteNonQuery() > 0;   // 0 satır → çakışma var, eklenmedi
+                        var sonuc = k.ExecuteScalar();
+                        return sonuc != null;
                     }
                 }
             }
@@ -219,8 +211,7 @@ namespace FabrikaStokTakipUygulamasi
         }
 
         /// <summary>
-        /// Kullanıcıyı günceller. <paramref name="yeniSifre"/> boş/null ise mevcut şifre hash'i korunur
-        /// (Admin panelinde şifre alanı artık düz metin göstermediği için varsayılan davranış budur).
+        /// Kullanıcıyı günceller. <paramref name="yeniSifre"/> boş/null ise mevcut şifre hash'i korunur.
         /// </summary>
         public static bool KullaniciGuncelle(string eskiAd, string yeniAd, string yeniSifre, KullaniciRol rol)
         {
@@ -239,7 +230,7 @@ namespace FabrikaStokTakipUygulamasi
                             SET ""KullaniciAdi"" = @YeniAd, ""Sifre"" = @Sifre, ""Rol"" = @Rol
                             WHERE LOWER(""KullaniciAdi"") = LOWER(@EskiAd);";
 
-                    using (var k = new SqliteCommand(sql, baglanti))
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     {
                         k.Parameters.AddWithValue("@EskiAd", eskiAd);
                         k.Parameters.AddWithValue("@YeniAd", yeniAd);
@@ -262,7 +253,7 @@ namespace FabrikaStokTakipUygulamasi
                 {
                     baglanti.Open();
                     string sql = @"DELETE FROM ""Kullanicilar"" WHERE LOWER(""KullaniciAdi"") = LOWER(@Ad);";
-                    using (var k = new SqliteCommand(sql, baglanti))
+                    using (var k = new NpgsqlCommand(sql, baglanti))
                     {
                         k.Parameters.AddWithValue("@Ad", ad);
                         return k.ExecuteNonQuery() > 0;
@@ -272,12 +263,11 @@ namespace FabrikaStokTakipUygulamasi
             catch { return false; }
         }
 
-        // ── Yardımcı ─────────────────────────────────────────────────────────
         private static KullaniciRol RolParse(string rol) => rol switch
         {
-            "Admin"         => KullaniciRol.Admin,
-            "Muhendis"      => KullaniciRol.Muhendis,
-            _               => KullaniciRol.DepoPersoneli
+            "Admin"    => KullaniciRol.Admin,
+            "Muhendis" => KullaniciRol.Muhendis,
+            _          => KullaniciRol.DepoPersoneli
         };
     }
 }
