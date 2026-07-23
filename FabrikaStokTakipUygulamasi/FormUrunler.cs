@@ -17,7 +17,7 @@ namespace FabrikaStokTakipUygulamasi
             btnDelete.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Sil,      btnDelete.ClientRectangle, System.Drawing.Color.White);
             btnExcel.Paint  += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.DisaAktar, btnExcel.ClientRectangle, System.Drawing.Color.White);
 
-            UIStil.HoverAnimasyonuBagla(btnDetail, Color.FromArgb(44, 62, 80), UIStil.MaviAcik, renk => btnDetail.BackColor = renk);
+            UIStil.HoverAnimasyonuBagla(btnDetail, UIStil.Lacivert, UIStil.MaviAcik, renk => btnDetail.BackColor = renk);
             UIStil.HoverAnimasyonuBagla(btnEdit,   UIStil.Aksan,               Color.FromArgb(245, 180, 90), renk => btnEdit.BackColor = renk);
         }
 

@@ -23,7 +23,12 @@ namespace FabrikaStokTakipUygulamasi
             foreach (var btn in new[] { btnDashboard, btnUrunler, btnUrunEkle, btnArama, btnLowStock })
             {
                 var b = btn;
-                UIStil.HoverAnimasyonuBagla(b, Color.FromArgb(52, 73, 94), UIStil.MaviAcik, renk =>
+                // Designer'daki statik MouseOverBackColor/MouseDownBackColor, Flat butonlarda
+                // animasyonlu BackColor'ın üzerine geçer (fare üzerine gelince eski maviye zıplardı).
+                // Temizlenince BackColor ataması gerçekten görünür olur.
+                b.FlatAppearance.MouseOverBackColor = Color.Empty;
+                b.FlatAppearance.MouseDownBackColor = Color.Empty;
+                UIStil.HoverAnimasyonuBagla(b, Color.FromArgb(14, 82, 76), UIStil.MaviAcik, renk =>
                 {
                     if (b != aktifButon) b.BackColor = renk;
                 });
@@ -99,9 +104,9 @@ namespace FabrikaStokTakipUygulamasi
 
         private void ButonuAktifYap(Button btn)
         {
-            if (aktifButon != null) aktifButon.BackColor = Color.FromArgb(45, 62, 80);
+            if (aktifButon != null) aktifButon.BackColor = Color.FromArgb(14, 82, 76);
             aktifButon = btn;
-            aktifButon.BackColor = Color.FromArgb(41, 128, 185);
+            aktifButon.BackColor = UIStil.Mavi;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e) { ButonuAktifYap(btnDashboard); SayfaYukle(new FormDashboard()); }

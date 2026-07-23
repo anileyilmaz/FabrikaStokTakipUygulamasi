@@ -38,7 +38,7 @@ namespace FabrikaStokTakipUygulamasi
             this.SuspendLayout();
 
             // panelSidebar
-            this.panelSidebar.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.panelSidebar.BackColor = System.Drawing.Color.FromArgb(14, 82, 76);
             this.panelSidebar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSidebar.Controls.Add(this.btnLowStock);
             this.panelSidebar.Controls.Add(this.btnArama);
@@ -146,8 +146,8 @@ namespace FabrikaStokTakipUygulamasi
             // btnAdmin
             this.btnAdmin.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAdmin.FlatAppearance.BorderSize = 0;
-            this.btnAdmin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 152, 219);
-            this.btnAdmin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            this.btnAdmin.FlatAppearance.MouseDownBackColor = UIStil.MaviAcik;
+            this.btnAdmin.FlatAppearance.MouseOverBackColor = UIStil.Mavi;
             this.btnAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdmin.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnAdmin.ForeColor = System.Drawing.Color.FromArgb(243, 156, 18);
@@ -215,7 +215,7 @@ namespace FabrikaStokTakipUygulamasi
             this.panelMain.TabIndex = 1;
 
             // panelTop - üst başlık çubuğu
-            this.panelTop.BackColor = System.Drawing.Color.FromArgb(45, 62, 80);
+            this.panelTop.BackColor = UIStil.LacivertKoyu;
             this.panelTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTop.Controls.Add(this.label1);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;

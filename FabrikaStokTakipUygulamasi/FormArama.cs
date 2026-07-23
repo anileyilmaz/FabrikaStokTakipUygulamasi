@@ -15,7 +15,7 @@ namespace FabrikaStokTakipUygulamasi
             btnAra.Paint     += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Ara,   btnAra.ClientRectangle,     System.Drawing.Color.White, 10f);
             btnTemizle.Paint += (s, e) => UIStil.SolIkonCiz(e.Graphics, UIStil.Glyph.Kapat, btnTemizle.ClientRectangle, System.Drawing.Color.White, 10f);
 
-            UIStil.HoverAnimasyonuBagla(btnAra, Color.FromArgb(46, 134, 193), UIStil.MaviAcik, renk => btnAra.BackColor = renk);
+            UIStil.HoverAnimasyonuBagla(btnAra, UIStil.Mavi, UIStil.MaviAcik, renk => btnAra.BackColor = renk);
         }
 
         private void FormArama_Load(object sender, EventArgs e)

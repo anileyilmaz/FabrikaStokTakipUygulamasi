@@ -89,7 +89,7 @@
             //
             // panelTotal
             //
-            this.panelTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.panelTotal.BackColor = UIStil.Lacivert;
             this.panelTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTotal.Controls.Add(this.label2);
             this.panelTotal.Controls.Add(this.label1);
@@ -158,7 +158,7 @@
             //
             // panelCompany
             //
-            this.panelCompany.BackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            this.panelCompany.BackColor = UIStil.Mavi;
             this.panelCompany.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCompany.Controls.Add(this.label5);
             this.panelCompany.Controls.Add(this.label6);
