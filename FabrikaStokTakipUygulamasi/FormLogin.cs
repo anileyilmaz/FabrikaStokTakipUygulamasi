@@ -12,6 +12,12 @@ namespace FabrikaStokTakipUygulamasi
             InitializeComponent();
             DiliUygula();
             LangManager.DilDegisti += DiliUygula;
+
+            UIStil.YuvarlakBolgeUygula(panelLeft, 0); // düz kenar korunur (Dock=Left tam form yüksekliği) — yarıçap 0, gölge asıl vurgu
+            this.Paint += (s, e) => UIStil.YumusakGolgeCiz(e.Graphics, panelLeft.Bounds, 6);
+
+            UIStil.HoverAnimasyonuBagla(btnLogin, UIStil.Mavi, UIStil.MaviAcik, renk => btnLogin.BackColor = renk);
+            UIStil.HoverAnimasyonuBagla(btnDilToggle, System.Drawing.Color.FromArgb(22, 160, 133), UIStil.MaviAcik, renk => btnDilToggle.BackColor = renk);
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
