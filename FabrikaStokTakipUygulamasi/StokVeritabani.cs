@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.Data.Sqlite;
+using Npgsql;
 
 namespace FabrikaStokTakipUygulamasi
 {
@@ -41,28 +40,32 @@ namespace FabrikaStokTakipUygulamasi
 
     public static class StokVeritabani
     {
-        private static string _baglantiString;
-
-        /// <summary>%AppData%\FabrikaStokTakipUygulamasi\stok.db — tek makine, dosya tabanlı veritabanı.</summary>
+        /// <summary>
+        /// Fabrika içi paylaşımlı PostgreSQL sunucusuna bağlantı bilgisi
+        /// BaglantiAyarlari'ndan (yerel, DPAPI şifreli JSON dosyası) okunur.
+        /// </summary>
         private static string BaglantiString
         {
             get
             {
-                if (_baglantiString != null) return _baglantiString;
-
-                string klasor = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "FabrikaStokTakipUygulamasi");
-                Directory.CreateDirectory(klasor);
-                string dosyaYolu = Path.Combine(klasor, "stok.db");
-
-                _baglantiString = new SqliteConnectionStringBuilder
+                var ayar = BaglantiAyarlari.Oku();
+                if (ayar == null)
                 {
-                    DataSource = dosyaYolu,
-                    Mode = SqliteOpenMode.ReadWriteCreate
-                }.ConnectionString;
+                    throw new InvalidOperationException(
+                        "Sunucu bağlantı bilgisi bulunamadı. Lütfen önce bağlantı ayarlarını yapılandırın.");
+                }
 
-                return _baglantiString;
+                var builder = new NpgsqlConnectionStringBuilder
+                {
+                    Host     = ayar.Value.sunucu,
+                    Port     = ayar.Value.port > 0 ? ayar.Value.port : 5432,
+                    Database = ayar.Value.veritabaniAdi,
+                    Username = ayar.Value.kullaniciAdi,
+                    Password = ayar.Value.sifre,
+                    Timeout        = 15,
+                    CommandTimeout = 30
+                };
+                return builder.ConnectionString;
             }
         }
 
@@ -70,17 +73,17 @@ namespace FabrikaStokTakipUygulamasi
         /// KullaniciYonetici ve diğer sınıfların kullanımı için açık bağlantı nesnesi döndürür.
         /// Çağıran taraf Open() ve Dispose() çağrısından sorumludur.
         /// </summary>
-        public static SqliteConnection YeniBaglanti() => new SqliteConnection(BaglantiString);
+        public static NpgsqlConnection YeniBaglanti() => new NpgsqlConnection(BaglantiString);
 
         public static void Baslat()
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
 
                 string urunlerTablosu = @"
                     CREATE TABLE IF NOT EXISTS ""Urunler"" (
-                        ""Id""                INTEGER PRIMARY KEY AUTOINCREMENT,
+                        ""Id""                SERIAL PRIMARY KEY,
                         ""UrunCinsi""         TEXT,
                         ""Material""          TEXT,
                         ""Grade""             TEXT,
@@ -95,61 +98,51 @@ namespace FabrikaStokTakipUygulamasi
                         ""Parent""            TEXT,
                         ""EklenmeTarihi""     TEXT,
                         ""LowStockLimit""     INTEGER NOT NULL DEFAULT -1,
-                        ""SertifikaPdf""      BLOB,
+                        ""SertifikaPdf""      BYTEA,
                         ""SertifikaDosyaAdi"" TEXT
                     );";
-                using (var k = new SqliteCommand(urunlerTablosu, baglanti)) k.ExecuteNonQuery();
+                using (var k = new NpgsqlCommand(urunlerTablosu, baglanti)) k.ExecuteNonQuery();
 
-                MigrationKolonEkleTablo(baglanti, "Urunler", "LowStockLimit",     "INTEGER NOT NULL DEFAULT -1");
-                MigrationKolonEkleTablo(baglanti, "Urunler", "SertifikaPdf",      "BLOB");
-                MigrationKolonEkleTablo(baglanti, "Urunler", "SertifikaDosyaAdi", "TEXT");
+                MigrationKolonEkle(baglanti, "LowStockLimit",     "INTEGER NOT NULL DEFAULT -1");
+                MigrationKolonEkle(baglanti, "SertifikaPdf",      "BYTEA");
+                MigrationKolonEkle(baglanti, "SertifikaDosyaAdi", "TEXT");
 
                 string hareketTablosu = @"
                     CREATE TABLE IF NOT EXISTS ""StokHareketleri"" (
-                        ""Id""           INTEGER PRIMARY KEY AUTOINCREMENT,
+                        ""Id""           SERIAL PRIMARY KEY,
                         ""Tarih""        TEXT NOT NULL,
                         ""KullaniciAdi"" TEXT NOT NULL,
                         ""UrunId""       INTEGER NOT NULL,
                         ""UrunAdi""      TEXT NOT NULL,
                         ""EskiStok""     INTEGER NOT NULL,
                         ""YeniStok""     INTEGER NOT NULL,
-                        ""Fark""         INTEGER NOT NULL,
-                        ""IslemAdi""     TEXT NOT NULL DEFAULT 'Stok Eklendi'
+                        ""Fark""         INTEGER NOT NULL
                     );";
-                using (var k = new SqliteCommand(hareketTablosu, baglanti)) k.ExecuteNonQuery();
+                using (var k = new NpgsqlCommand(hareketTablosu, baglanti)) k.ExecuteNonQuery();
 
-                MigrationKolonEkleTablo(baglanti, "StokHareketleri", "IslemAdi", "TEXT NOT NULL DEFAULT 'Stok Eklendi'");
+                try
+                {
+                    using (var km = new NpgsqlCommand(
+                        @"ALTER TABLE ""StokHareketleri"" ADD COLUMN IF NOT EXISTS ""IslemAdi"" TEXT NOT NULL DEFAULT 'Stok Eklendi';",
+                        baglanti)) km.ExecuteNonQuery();
+                }
+                catch { /* IF NOT EXISTS desteklenmiyorsa yoksay */ }
 
-                // Kullanıcılar tablosunu oluştur ve varsayılan kullanıcıları ekle
                 KullaniciYonetici.TabloyuKur(baglanti);
             }
         }
 
-        private static bool KolonVarMi(SqliteConnection baglanti, string tablo, string kolon)
+        private static void MigrationKolonEkle(NpgsqlConnection baglanti, string kolon, string tip)
         {
-            using (var k = new SqliteCommand($"PRAGMA table_info(\"{tablo}\");", baglanti))
-            using (var oku = k.ExecuteReader())
-            {
-                while (oku.Read())
-                {
-                    if (string.Equals(oku["name"].ToString(), kolon, StringComparison.OrdinalIgnoreCase))
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        private static void MigrationKolonEkleTablo(SqliteConnection baglanti, string tablo, string kolon, string tip)
-        {
-            if (KolonVarMi(baglanti, tablo, kolon)) return;
-            using (var k = new SqliteCommand($"ALTER TABLE \"{tablo}\" ADD COLUMN \"{kolon}\" {tip};", baglanti))
+            using (var k = new NpgsqlCommand(
+                $"ALTER TABLE \"Urunler\" ADD COLUMN IF NOT EXISTS \"{kolon}\" {tip};", baglanti))
                 k.ExecuteNonQuery();
         }
 
         /// <summary>Ürünü ekler ve yeni satırın Id'sini döndürür.</summary>
         public static int UrunEkle(Urun urun)
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
                 string sql = @"
@@ -160,10 +153,10 @@ namespace FabrikaStokTakipUygulamasi
                     VALUES
                         (@UrunCinsi, @Material, @Grade, @Thickness, @Width, @Length,
                          @Stok, @Customer, @Certificate, @Batch, @Heat, @Parent,
-                         @EklenmeTarihi, @SertifikaPdf, @SertifikaDosyaAdi);
-                    SELECT last_insert_rowid();";
+                         @EklenmeTarihi, @SertifikaPdf, @SertifikaDosyaAdi)
+                    RETURNING ""Id"";";
 
-                using (var k = new SqliteCommand(sql, baglanti))
+                using (var k = new NpgsqlCommand(sql, baglanti))
                 {
                     ParametreleriEkle(k, urun, false);
                     return Convert.ToInt32(k.ExecuteScalar());
@@ -173,10 +166,10 @@ namespace FabrikaStokTakipUygulamasi
 
         public static void UrunSil(int id)
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
-                using (var k = new SqliteCommand("DELETE FROM \"Urunler\" WHERE \"Id\"=@Id;", baglanti))
+                using (var k = new NpgsqlCommand("DELETE FROM \"Urunler\" WHERE \"Id\"=@Id;", baglanti))
                 {
                     k.Parameters.AddWithValue("@Id", id);
                     k.ExecuteNonQuery();
@@ -186,7 +179,7 @@ namespace FabrikaStokTakipUygulamasi
 
         public static void UrunGuncelle(Urun urun)
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
                 string sql = @"
@@ -207,7 +200,7 @@ namespace FabrikaStokTakipUygulamasi
                         ""SertifikaDosyaAdi"" = @SertifikaDosyaAdi
                     WHERE ""Id"" = @Id;";
 
-                using (var k = new SqliteCommand(sql, baglanti))
+                using (var k = new NpgsqlCommand(sql, baglanti))
                 {
                     ParametreleriEkle(k, urun, true);
                     k.ExecuteNonQuery();
@@ -215,7 +208,7 @@ namespace FabrikaStokTakipUygulamasi
             }
         }
 
-        private static void ParametreleriEkle(SqliteCommand k, Urun urun, bool idEkle)
+        private static void ParametreleriEkle(NpgsqlCommand k, Urun urun, bool idEkle)
         {
             k.Parameters.AddWithValue("@UrunCinsi",         (object)(urun.UrunCinsi ?? "") );
             k.Parameters.AddWithValue("@Material",          (object)(urun.Material ?? "") );
@@ -238,10 +231,10 @@ namespace FabrikaStokTakipUygulamasi
         public static List<Urun> TumUrunler()
         {
             var liste = new List<Urun>();
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
-                using (var k = new SqliteCommand("SELECT * FROM \"Urunler\" ORDER BY \"Id\" DESC;", baglanti))
+                using (var k = new NpgsqlCommand("SELECT * FROM \"Urunler\" ORDER BY \"Id\" DESC;", baglanti))
                 using (var oku = k.ExecuteReader())
                 {
                     while (oku.Read())
@@ -274,10 +267,10 @@ namespace FabrikaStokTakipUygulamasi
 
         public static void LowStockLimitGuncelle(int id, int limit)
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
-                using (var k = new SqliteCommand("UPDATE \"Urunler\" SET \"LowStockLimit\"=@Limit WHERE \"Id\"=@Id;", baglanti))
+                using (var k = new NpgsqlCommand("UPDATE \"Urunler\" SET \"LowStockLimit\"=@Limit WHERE \"Id\"=@Id;", baglanti))
                 {
                     k.Parameters.AddWithValue("@Limit", limit);
                     k.Parameters.AddWithValue("@Id", id);
@@ -291,7 +284,7 @@ namespace FabrikaStokTakipUygulamasi
             if (KullaniciYonetici.AktifKullanici == null) return;
             if (eskiStok == yeniStok && islemAdi == null) return;
 
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
                 string sql = @"
@@ -299,7 +292,7 @@ namespace FabrikaStokTakipUygulamasi
                         (""Tarih"", ""KullaniciAdi"", ""UrunId"", ""UrunAdi"", ""EskiStok"", ""YeniStok"", ""Fark"", ""IslemAdi"")
                     VALUES
                         (@Tarih, @KullaniciAdi, @UrunId, @UrunAdi, @EskiStok, @YeniStok, @Fark, @IslemAdi);";
-                using (var k = new SqliteCommand(sql, baglanti))
+                using (var k = new NpgsqlCommand(sql, baglanti))
                 {
                     k.Parameters.AddWithValue("@Tarih",        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     k.Parameters.AddWithValue("@KullaniciAdi", KullaniciYonetici.AktifKullanici.KullaniciAdi);
@@ -318,10 +311,10 @@ namespace FabrikaStokTakipUygulamasi
         public static List<StokHareket> HareketleriGetir()
         {
             var liste = new List<StokHareket>();
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
-                using (var k = new SqliteCommand("SELECT * FROM \"StokHareketleri\" ORDER BY \"Id\" DESC;", baglanti))
+                using (var k = new NpgsqlCommand("SELECT * FROM \"StokHareketleri\" ORDER BY \"Id\" DESC;", baglanti))
                 using (var oku = k.ExecuteReader())
                 {
                     while (oku.Read())
@@ -362,10 +355,10 @@ namespace FabrikaStokTakipUygulamasi
 
         private static int TekSayiSorgu(string sql)
         {
-            using (var baglanti = new SqliteConnection(BaglantiString))
+            using (var baglanti = new NpgsqlConnection(BaglantiString))
             {
                 baglanti.Open();
-                using (var k = new SqliteCommand(sql, baglanti))
+                using (var k = new NpgsqlCommand(sql, baglanti))
                     return Convert.ToInt32(k.ExecuteScalar());
             }
         }
