@@ -113,8 +113,10 @@ namespace FabrikaStokTakipUygulamasi
                 if (c.Width <= 0 || c.Height <= 0) return;
                 float olcek = c.DeviceDpi / 96f;
                 int r = Math.Max(2, (int)(yaricap * olcek));
+                var eskiBolge = c.Region;
                 using (var yol = YuvarlakDikdortgenYolu(new Rectangle(0, 0, c.Width, c.Height), r))
                     c.Region = new Region(yol);
+                eskiBolge?.Dispose();
             }
             c.Resize += (s, e) => Uygula();
             Uygula();
