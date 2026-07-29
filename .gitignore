@@ -2,3 +2,6 @@ bin/
 obj/
 .vs/
 *.user
+
+# Claude Code çalışma dosyası - yerel geliştirme için tutulur, public repoda görünmez
+docs/superpowers/
