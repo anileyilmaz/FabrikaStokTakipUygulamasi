@@ -8,7 +8,9 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # WinForms projesi test host'u çalıştırmak için gerçek Microsoft.WindowsDesktop.App
+    # runtime'ı gerektiriyor - bu Linux'ta yok, bu yüzden windows-latest kullanılıyor.
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
