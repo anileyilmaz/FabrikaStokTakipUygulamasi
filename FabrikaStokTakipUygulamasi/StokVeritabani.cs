@@ -50,7 +50,9 @@ namespace FabrikaStokTakipUygulamasi
         /// </summary>
         public static NpgsqlConnection YeniBaglanti() => new NpgsqlConnection(BaglantiString);
 
-        private static string PostgreSqlBaglantiStringiOlustur()
+        // internal: test projesi (InternalsVisibleTo, bkz. AssemblyInfo.cs) veritabanına
+        // hiç bağlanmadan bu saf ayrıştırma mantığını doğrudan test edebilsin diye.
+        internal static string PostgreSqlBaglantiStringiOlustur()
         {
             string url = Environment.GetEnvironmentVariable("STOK_DB_URL")
                       ?? Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL")

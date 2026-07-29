@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FabrikaStokTakipUygulamasi", "FabrikaStokTakipUygulamasi\FabrikaStokTakipUygulamasi.csproj", "{0987E701-8E7F-4339-995A-C9E5A030DDAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FabrikaStokTakipUygulamasi.Tests", "FabrikaStokTakipUygulamasi.Tests\FabrikaStokTakipUygulamasi.Tests.csproj", "{2AF6C59B-978A-4FA9-B46E-40D99754747E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0987E701-8E7F-4339-995A-C9E5A030DDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0987E701-8E7F-4339-995A-C9E5A030DDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0987E701-8E7F-4339-995A-C9E5A030DDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AF6C59B-978A-4FA9-B46E-40D99754747E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF6C59B-978A-4FA9-B46E-40D99754747E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF6C59B-978A-4FA9-B46E-40D99754747E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF6C59B-978A-4FA9-B46E-40D99754747E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

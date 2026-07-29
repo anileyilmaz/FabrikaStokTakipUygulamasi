@@ -5,6 +5,12 @@ Küçük bir fabrika/depo için ürün ve stok hareketlerini takip eden, giriş 
 masaüstü uygulaması (WinForms, .NET 8).
 </p>
 
+<p align="center">
+  <a href="https://github.com/anileyilmaz/fabrika-stok-takip/actions/workflows/test.yml">
+    <img src="https://github.com/anileyilmaz/fabrika-stok-takip/actions/workflows/test.yml/badge.svg" alt="Test durumu" />
+  </a>
+</p>
+
 ---
 
 ## Özellikler
@@ -35,3 +41,15 @@ C# · .NET 8 (WinForms) · Npgsql (PostgreSQL)
 4. **F5** ile çalıştır.
 
 Daha fazla kurulum detayı için [KURULUM.md](KURULUM.md).
+
+## Test
+
+```bash
+dotnet test FabrikaStokTakipUygulamasi.Tests/FabrikaStokTakipUygulamasi.Tests.csproj
+```
+
+`FabrikaStokTakipUygulamasi.Tests` (xUnit), veritabanına dokunmadan test edilebilen
+saf mantığı kapsar: Railway bağlantı adresinin (`STOK_DB_URL` vb.) doğru ayrıştırılması,
+TR/EN çeviri sözlüklerinin (`LangManager`) birbirine karşılık gelmesi ve kullanıcı
+rol adlarının doğru dilde döndürülmesi. Push/PR'da GitHub Actions ile otomatik çalışır
+(`.github/workflows/test.yml`).
