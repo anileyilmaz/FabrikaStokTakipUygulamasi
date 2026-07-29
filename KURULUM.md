@@ -11,6 +11,8 @@ Bu sürüm .NET 8 (Windows) kullanıyor — modern Visual Studio'larda her zaman
 3. **F5** ile çalıştırın
 
 ## Notlar
-- SQLite paketi: `Microsoft.Data.Sqlite 8.0.0` (otomatik indirilir)
-- Veritabanı: `%AppData%\FabrikaStokTakipUygulamasi\stok.db` (ilk açılışta otomatik oluşur)
-- İnternet bağlantısı ilk derlemede gereklidir (NuGet indirmesi için)
+- Veritabanı: Railway üzerinde barındırılan PostgreSQL (Npgsql paketi, otomatik indirilir) —
+  detaylı kurulum için [RAILWAY_DATABASE_KURULUM.md](RAILWAY_DATABASE_KURULUM.md)'ye bakın.
+  `STOK_DB_URL` ortam değişkeni ayarlanmadan uygulama açılmaz.
+- İnternet bağlantısı ilk derlemede (NuGet indirmesi için) ve çalışma zamanında
+  (Railway'e bağlanmak için) gereklidir.
