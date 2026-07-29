@@ -13,6 +13,10 @@
     <ApplicationVisualStyles>true</ApplicationVisualStyles>
     <ApplicationUseCompatibleTextRendering>false</ApplicationUseCompatibleTextRendering>
     <Deterministic>true</Deterministic>
+    <!-- CI (Linux) bu projeyi sadece derleyip test edebilsin diye - uygulamanın
+         kendisi hâlâ yalnızca Windows'ta çalıştırılabilir, bu sadece derleme
+         zamanı kısıtlamasını gevşetir. -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
